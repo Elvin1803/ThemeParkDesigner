@@ -1,11 +1,13 @@
-#include <iostream>
+#include "graphics_engine.h"
+
+#include <stdio.h>
 #include <Windows.h>
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
     switch (msg)
     {
-    case WM_CLOSE:
+    case WM_DESTROY:
         PostQuitMessage(0);
         break;
     }
@@ -13,16 +15,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 
-int CALLBACK WinMain(
-    HINSTANCE hInstance,
-    HINSTANCE hPrevInstance,
-    LPSTR lpCmdLine,
-    int nCmdShow)
+HWND init_window(HINSTANCE hInstance)
 {
     const auto pClassName = "Theme Park Designer";
 
     // register window class
-    WNDCLASSEX wc = {0};
+    WNDCLASSEX wc;
     wc.cbSize = sizeof(wc);
     wc.style = CS_OWNDC;
     wc.lpfnWndProc = WndProc;
@@ -39,30 +37,17 @@ int CALLBACK WinMain(
     RegisterClassEx(&wc);
 
     // create window instance
+    RECT wr = {0, 0, 500, 400};    // set the size, but not the position
+    AdjustWindowRect(&wr, WS_OVERLAPPEDWINDOW, FALSE);    // adjust the size
+
     HWND hWnd = CreateWindowEx(
         0, pClassName,
         "Theme Park Designer",
         WS_CAPTION | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SYSMENU,
         200, 200,
-        1280, 720,
+        wr.right - wr.left,
+        wr.bottom - wr.top,
         nullptr, nullptr, hInstance, nullptr
     );
-
-    ShowWindow(hWnd, SW_SHOW);
-
-    // messages
-    MSG msg;
-    BOOL gResult;
-    while ((gResult = GetMessage(&msg, nullptr, 0, 0)) > 0)
-    {
-        TranslateMessage(&msg);
-        DispatchMessage(&msg);
-    }
-
-    if (gResult == -1)
-    {
-        return -1;
-    }
-
-    return msg.wParam;
+    return hWnd;
 }
