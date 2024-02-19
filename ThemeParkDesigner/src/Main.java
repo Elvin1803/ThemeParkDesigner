@@ -1,13 +1,18 @@
-import GameEngine.GraphicsEngine.DisplayManager;
+import GameEngine.DisplayManager;
+import GameEngine.GraphicsEngine.Mesh;
+import GameEngine.GraphicsEngine.Renderer;
+import GameEngine.GraphicsEngine.Vertex;
+import Utils.Maths.Vector3f;
 import Utils.MyLogging;
 
-import java.awt.*;
 import java.util.logging.Level;
 
 public class Main implements Runnable
 {
     public Thread game;
     public DisplayManager displayManager;
+    public Renderer renderer;
+    public Mesh rectangle;
 
     public void start()
     {
@@ -19,7 +24,18 @@ public class Main implements Runnable
     public void init()
     {
         displayManager = new DisplayManager(1280, 720);
+        renderer = new Renderer();
         displayManager.createDisplay();
+
+        rectangle = new Mesh(new Vertex[]{
+                new Vertex(new Vector3f(-0.5f, 0.5f, 0.0f)),
+                new Vertex(new Vector3f(0.5f, 0.5f, 0.0f)),
+                new Vertex(new Vector3f(-0.5f, -0.5f, 0.0f)),
+                new Vertex(new Vector3f(0.5f, -0.5f, 0.0f)),
+        }, new int[]{
+                0, 2, 1,
+                1, 2, 3
+        });
     }
 
     public void run()
@@ -27,6 +43,7 @@ public class Main implements Runnable
         init();
         while (!displayManager.shouldClose())
         {
+            // Main game loop here
             update();
             render();
         }
@@ -39,6 +56,7 @@ public class Main implements Runnable
 
     public void render()
     {
+        renderer.renderMesh(rectangle);
         displayManager.swapBuffers();
     }
 

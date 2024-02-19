@@ -1,11 +1,11 @@
-package GameEngine.GraphicsEngine;
+package GameEngine;
 
 import Utils.MyLogging;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWVidMode;
+import org.lwjgl.opengl.GL;
 
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DisplayManager
 {
@@ -45,6 +45,7 @@ public class DisplayManager
         }
         GLFW.glfwSetWindowPos(window, (videoMode.width() - width) / 2, (videoMode.height() - height) / 2);
         GLFW.glfwMakeContextCurrent(window);
+        GL.createCapabilities();
 
         GLFW.glfwShowWindow(window);
         GLFW.glfwSwapInterval(1);
