@@ -12,9 +12,9 @@ public class Mesh
     private Vertex[] vertices;
     private int[] indices;
 
-    private int vaoId;
-    private int vboId;
-    private int iboId;
+    private int vaoID;
+    private int vboID;
+    private int iboID;
 
     public Mesh(Vertex[] vertices, int[] indices)
     {
@@ -24,14 +24,10 @@ public class Mesh
 
     public void createVao()
     {
-        vaoId = GL30.glGenVertexArrays();
-        GL30.glBindVertexArray(vaoId);
+        vaoID = GL30.glGenVertexArrays();
+        GL30.glBindVertexArray(vaoID);
 
         FloatBuffer verticesBuffer = MemoryUtil.memAllocFloat(vertices.length * 3);
-        if (verticesBuffer == null)
-        {
-            throw new RuntimeException("Mesh constructor: Not enough memory !");
-        }
 
         float[] tempVertices = new float[vertices.length * 3];
         for (int i = 0; i < vertices.length; i++)
@@ -42,21 +38,17 @@ public class Mesh
         }
         verticesBuffer.put(tempVertices).flip();
 
-        vboId = GL15.glGenBuffers();
-        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vboId);
+        vboID = GL15.glGenBuffers();
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vboID);
         GL15.glBufferData(GL15.GL_ARRAY_BUFFER, verticesBuffer, GL15.GL_STATIC_DRAW);
         GL20.glVertexAttribPointer(0, 3, GL11.GL_FLOAT, false, 0, 0);
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
 
         IntBuffer indicesBuffer = MemoryUtil.memAllocInt(indices.length);
-        if (indicesBuffer == null)
-        {
-            throw new RuntimeException("Mesh constructor: Not enough memory !");
-        }
         indicesBuffer.put(indices).flip();
 
-        iboId = GL15.glGenBuffers();
-        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, iboId);
+        iboID = GL15.glGenBuffers();
+        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, iboID);
         GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBuffer, GL15.GL_STATIC_DRAW);
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
 
@@ -69,12 +61,12 @@ public class Mesh
 
         // Delete the VBOs
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
-        GL15.glDeleteBuffers(vboId);
-        GL15.glDeleteBuffers(iboId);
+        GL15.glDeleteBuffers(vboID);
+        GL15.glDeleteBuffers(iboID);
 
         // Delete the VAO
         GL30.glBindVertexArray(0);
-        GL30.glDeleteVertexArrays(vaoId);
+        GL30.glDeleteVertexArrays(vaoID);
     }
 
     public Vertex[] getVertices()
@@ -87,18 +79,18 @@ public class Mesh
         return indices;
     }
 
-    public int getVaoId()
+    public int getVaoID()
     {
-        return vaoId;
+        return vaoID;
     }
 
-    public int getVboId()
+    public int getVboID()
     {
-        return vboId;
+        return vboID;
     }
 
-    public int getIboId()
+    public int getIboID()
     {
-        return iboId;
+        return iboID;
     }
 }

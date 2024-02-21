@@ -3,6 +3,7 @@ package main;
 import main.java.GameEngine.DisplayManager;
 import main.java.GameEngine.GraphicsEngine.Mesh;
 import main.java.GameEngine.GraphicsEngine.Renderer;
+import main.java.GameEngine.GraphicsEngine.Shaders.StaticShader;
 import main.java.GameEngine.GraphicsEngine.Vertex;
 import main.java.GameEngine.Utils.Maths.Vector3f;
 import main.java.GameEngine.Utils.MyLogging;
@@ -15,6 +16,7 @@ public class Main implements Runnable
     public DisplayManager displayManager;
     public Renderer renderer;
     public Mesh rectangle;
+    public StaticShader shader;
 
     public void start()
     {
@@ -30,15 +32,15 @@ public class Main implements Runnable
         displayManager.createDisplay();
 
         rectangle = new Mesh(new Vertex[]{
-                new Vertex(new Vector3f(-0.5f, 0.5f, 0.0f)),
-                new Vertex(new Vector3f(0.5f, 0.5f, 0.0f)),
+                new Vertex(new Vector3f(0.0f, 0.5f, 0.0f)),
                 new Vertex(new Vector3f(-0.5f, -0.5f, 0.0f)),
                 new Vertex(new Vector3f(0.5f, -0.5f, 0.0f)),
         }, new int[]{
-                0, 2, 1,
-                1, 2, 3
+                0, 1, 2
         });
         rectangle.createVao();
+
+        shader = new StaticShader();
     }
 
     public void run()
@@ -48,11 +50,14 @@ public class Main implements Runnable
         {
             renderer.prepare();
             // main.Main game loop here
-            update();
+            shader.start();
             render();
+            shader.stop();
+            update();
         }
 
         rectangle.cleanUp();
+        shader.cleanUp();
         MyLogging.log(Level.INFO, "Exiting Application.");
     }
 

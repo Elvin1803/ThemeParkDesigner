@@ -14,9 +14,9 @@ public class Renderer
 
     public void renderMesh(Mesh mesh)
     {
-        GL30.glBindVertexArray(mesh.getVaoId());
+        GL30.glBindVertexArray(mesh.getVaoID());
         GL30.glEnableVertexAttribArray(0);
-        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, mesh.getIboId());
+        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, mesh.getIboID());
         GL11.glDrawElements(GL11.GL_TRIANGLES, mesh.getIndices().length, GL11.GL_UNSIGNED_INT, 0);
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
         GL30.glDisableVertexAttribArray(0);
