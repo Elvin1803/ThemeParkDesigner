@@ -9,15 +9,16 @@ import java.util.logging.Level;
 
 public class DisplayManager
 {
-    private String title = "ThemeParkDesigner";
+    private String title;
 
     private int width;
     private int height;
 
     private long window;
 
-    public DisplayManager(int width, int height)
+    public DisplayManager(String title, int width, int height)
     {
+        this.title = title;
         this.width = width;
         this.height = height;
     }
@@ -64,5 +65,15 @@ public class DisplayManager
     public boolean shouldClose()
     {
         return GLFW.glfwWindowShouldClose(window);
+    }
+
+    public int getWidth()
+    {
+        return width;
+    }
+
+    public int getHeight()
+    {
+        return height;
     }
 }

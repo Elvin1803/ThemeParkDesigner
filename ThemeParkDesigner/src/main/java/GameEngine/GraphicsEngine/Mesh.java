@@ -1,11 +1,14 @@
 package main.java.GameEngine.GraphicsEngine;
 
+import main.java.GameEngine.GraphicsEngine.Material.Material;
 import org.lwjgl.opengl.*;
 
 import org.lwjgl.system.MemoryUtil;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Mesh
 {
@@ -13,8 +16,8 @@ public class Mesh
     private int[] indices;
 
     private int vaoID;
-    private int vboID;
-    private int iboID;
+    private List<Integer> vbos;
+    private Material material;
 
     public Mesh(Vertex[] vertices, int[] indices)
     {
@@ -22,11 +25,21 @@ public class Mesh
         this.indices = indices;
     }
 
+    public Mesh(Vertex[] vertices, int[] indices, Material material)
+    {
+        this.vertices = vertices;
+        this.indices = indices;
+        this.material = material;
+    }
+
     public void createVao()
     {
         vaoID = GL30.glGenVertexArrays();
         GL30.glBindVertexArray(vaoID);
 
+        vbos = new ArrayList<>();
+
+        // Store the position of all vertices
         FloatBuffer verticesBuffer = MemoryUtil.memAllocFloat(vertices.length * 3);
 
         float[] tempVertices = new float[vertices.length * 3];
@@ -37,41 +50,60 @@ public class Mesh
             tempVertices[i * 3 + 2] = vertices[i].getPosition().getZ();
         }
         verticesBuffer.put(tempVertices).flip();
+        storeInAttrib(verticesBuffer, 0, 3);
 
-        vboID = GL15.glGenBuffers();
-        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vboID);
-        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, verticesBuffer, GL15.GL_STATIC_DRAW);
-        GL20.glVertexAttribPointer(0, 3, GL11.GL_FLOAT, false, 0, 0);
-        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
-
+        // Store index buffer
         IntBuffer indicesBuffer = MemoryUtil.memAllocInt(indices.length);
         indicesBuffer.put(indices).flip();
 
-        iboID = GL15.glGenBuffers();
+        int iboID = GL15.glGenBuffers();
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, iboID);
-        GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBuffer, GL15.GL_STATIC_DRAW);
-        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
+        GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBuffer, GL15.GL_STATIC_DRAW); // OpenGL knows it is
+        // the index buffer
+        vbos.add(iboID);
 
+        // Store texture coordinates
+        FloatBuffer texCoordsBuffer = MemoryUtil.memAllocFloat(vertices.length * 2);
+
+        float[] tempTexCoords = new float[vertices.length * 2];
+        for (int i = 0; i < vertices.length; i++)
+        {
+            tempTexCoords[i * 2] = vertices[i].getTextureCoords().getX();
+            tempTexCoords[i * 2 + 1] = vertices[i].getTextureCoords().getY();
+        }
+        texCoordsBuffer.put(tempTexCoords).flip();
+        storeInAttrib(texCoordsBuffer, 1, 2);
+
+        // Free all buffers
         MemoryUtil.memFree(verticesBuffer);
         MemoryUtil.memFree(indicesBuffer);
+        MemoryUtil.memFree(texCoordsBuffer);
     }
 
-    public void cleanUp() {
+    public void storeInAttrib(FloatBuffer buffer, int index, int size)
+    {
+        int bufferID = GL15.glGenBuffers();
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, bufferID);
+        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, buffer, GL15.GL_STATIC_DRAW);
+        GL20.glVertexAttribPointer(index, size, GL11.GL_FLOAT, false, 0, 0);
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
+        vbos.add(bufferID);
+    }
+
+    public void cleanUp()
+    {
         GL20.glDisableVertexAttribArray(0);
 
         // Delete the VBOs
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
-        GL15.glDeleteBuffers(vboID);
-        GL15.glDeleteBuffers(iboID);
+        for (Integer vbo : vbos)
+        {
+            GL15.glDeleteBuffers(vbo);
+        }
 
         // Delete the VAO
         GL30.glBindVertexArray(0);
         GL30.glDeleteVertexArrays(vaoID);
-    }
-
-    public Vertex[] getVertices()
-    {
-        return vertices;
     }
 
     public int[] getIndices()
@@ -84,13 +116,8 @@ public class Mesh
         return vaoID;
     }
 
-    public int getVboID()
+    public Material getMaterial()
     {
-        return vboID;
-    }
-
-    public int getIboID()
-    {
-        return iboID;
+        return material;
     }
 }
