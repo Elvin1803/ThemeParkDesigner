@@ -1,5 +1,7 @@
 package main.java.GameEngine.GraphicsEngine;
 
+import main.java.GameEngine.GraphicsEngine.Shaders.StaticShader;
+import main.java.TPD.Scene;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL30;
@@ -12,7 +14,27 @@ public class Renderer
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
     }
 
-    public void renderMesh(Mesh mesh)
+    public void renderScene(Scene scene)
+    {
+        StaticShader shader = new StaticShader();
+        shader.start();
+        for (Model model : scene.getModels())
+        {
+            renderModel(model);
+        }
+        shader.stop();
+        shader.cleanUp();
+    }
+
+    private void renderModel(Model model)
+    {
+        for (Mesh mesh : model.getMeshes())
+        {
+            renderMesh(mesh);
+        }
+    }
+
+    private void renderMesh(Mesh mesh)
     {
         GL30.glBindVertexArray(mesh.getVaoID());
         GL30.glEnableVertexAttribArray(0); // Vertex Position

@@ -4,7 +4,6 @@ import main.java.GameEngine.Utils.MyLogging;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
-import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 import org.lwjgl.stb.STBImage;
 
@@ -22,15 +21,13 @@ public class Texture
     private int height;
     private int nrChannels;
 
-    private ByteBuffer data;
-
     public Texture(String texturePath)
     {
         IntBuffer width = BufferUtils.createIntBuffer(1);
         IntBuffer height = BufferUtils.createIntBuffer(1);
         IntBuffer nrChannels = BufferUtils.createIntBuffer(1);
 
-        data = stbi_load(texturePath, width, height, nrChannels, 0);
+        ByteBuffer data = stbi_load(texturePath, width, height, nrChannels, 0);
         if (data == null)
         {
             MyLogging.log(Level.WARNING, "Could not decode image file [" + texturePath + "]: [" + STBImage.stbi_failure_reason() + "]");

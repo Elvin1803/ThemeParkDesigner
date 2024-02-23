@@ -5,8 +5,8 @@ import main.java.GameEngine.Utils.Maths.Vector3f;
 
 public class Vertex
 {
-    private Vector3f position;
-    private Vector2f textureCoords;
+    private final Vector3f position;
+    private final Vector2f textureCoords;
 
     public Vertex(Vector3f position)
     {

@@ -5,15 +5,15 @@ import org.lwjgl.opengl.GL11;
 
 public class Material
 {
-    private float shininess;
-    private Vector3f colorAmbient;
-    private Vector3f colorDiffuse;
-    private Vector3f colorSpecular;
-    private Vector3f colorEmission;
-    private float refraction;
-    private float illumination;
+    private final float shininess;
+    private final Vector3f colorAmbient;
+    private final Vector3f colorDiffuse;
+    private final Vector3f colorSpecular;
+    private final Vector3f colorEmission;
+    private final float refraction;
+    private final float illumination;
 
-    private Texture texture;
+    private final Texture texture;
 
     public Material(Texture texture)
     {
@@ -21,23 +21,24 @@ public class Material
         colorAmbient = new Vector3f(1, 1, 1);
         colorDiffuse = new Vector3f(1, 1, 1);
         colorSpecular = new Vector3f(1, 1, 1);
-        colorEmission = new Vector3f(1, 1, 1);
+        colorEmission = new Vector3f(0, 0, 0);
         refraction = 1;
         illumination = 1;
 
         this.texture = texture;
     }
 
-    public Material(float shininess, Vector3f colorAmbient, Vector3f colorDiffuse, Vector3f colorSpecular, Vector3f colorEmission, float refraction, float illumination, Texture texture)
+    public Material(Vector3f color)
     {
-        this.shininess = shininess;
-        this.colorAmbient = colorAmbient;
-        this.colorDiffuse = colorDiffuse;
-        this.colorSpecular = colorSpecular;
-        this.colorEmission = colorEmission;
-        this.refraction = refraction;
-        this.illumination = illumination;
-        this.texture = texture;
+        shininess = 1;
+        colorAmbient = new Vector3f(1, 1, 1);
+        colorDiffuse = color;
+        colorSpecular = new Vector3f(1, 1, 1);
+        colorEmission = new Vector3f(0, 0, 0);
+        refraction = 1;
+        illumination = 1;
+
+        texture = null;
     }
 
     public void cleanUp()

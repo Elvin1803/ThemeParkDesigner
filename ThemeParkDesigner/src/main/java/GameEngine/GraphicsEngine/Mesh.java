@@ -12,8 +12,8 @@ import java.util.List;
 
 public class Mesh
 {
-    private Vertex[] vertices;
-    private int[] indices;
+    private final Vertex[] vertices;
+    private final int[] indices;
 
     private int vaoID;
     private List<Integer> vbos;
@@ -32,6 +32,13 @@ public class Mesh
         this.material = material;
     }
 
+    /*
+     * The Vao of the mesh will be created.
+     * The vertices' position will be stored in the attrib 0.
+     * The texture coordinates will be stored in the attrib 1.
+     *
+     * The index buffer is stored automatically by OpenGL.
+     */
     public void createVao()
     {
         vaoID = GL30.glGenVertexArrays();
@@ -41,13 +48,12 @@ public class Mesh
 
         // Store the position of all vertices
         FloatBuffer verticesBuffer = MemoryUtil.memAllocFloat(vertices.length * 3);
-
         float[] tempVertices = new float[vertices.length * 3];
         for (int i = 0; i < vertices.length; i++)
         {
-            tempVertices[i * 3] = vertices[i].getPosition().getX();
-            tempVertices[i * 3 + 1] = vertices[i].getPosition().getY();
-            tempVertices[i * 3 + 2] = vertices[i].getPosition().getZ();
+            tempVertices[i * 3] = vertices[i].getPosition().x();
+            tempVertices[i * 3 + 1] = vertices[i].getPosition().y();
+            tempVertices[i * 3 + 2] = vertices[i].getPosition().z();
         }
         verticesBuffer.put(tempVertices).flip();
         storeInAttrib(verticesBuffer, 0, 3);
@@ -55,21 +61,18 @@ public class Mesh
         // Store index buffer
         IntBuffer indicesBuffer = MemoryUtil.memAllocInt(indices.length);
         indicesBuffer.put(indices).flip();
-
         int iboID = GL15.glGenBuffers();
-        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, iboID);
-        GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBuffer, GL15.GL_STATIC_DRAW); // OpenGL knows it is
-        // the index buffer
+        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, iboID); // OpenGL knows it is the index buffer
+        GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBuffer, GL15.GL_STATIC_DRAW);
         vbos.add(iboID);
 
         // Store texture coordinates
         FloatBuffer texCoordsBuffer = MemoryUtil.memAllocFloat(vertices.length * 2);
-
         float[] tempTexCoords = new float[vertices.length * 2];
         for (int i = 0; i < vertices.length; i++)
         {
-            tempTexCoords[i * 2] = vertices[i].getTextureCoords().getX();
-            tempTexCoords[i * 2 + 1] = vertices[i].getTextureCoords().getY();
+            tempTexCoords[i * 2] = vertices[i].getTextureCoords().x();
+            tempTexCoords[i * 2 + 1] = vertices[i].getTextureCoords().y();
         }
         texCoordsBuffer.put(tempTexCoords).flip();
         storeInAttrib(texCoordsBuffer, 1, 2);

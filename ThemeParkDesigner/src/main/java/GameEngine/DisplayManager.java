@@ -9,10 +9,10 @@ import java.util.logging.Level;
 
 public class DisplayManager
 {
-    private String title;
+    private final String title;
 
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
 
     private long window;
 

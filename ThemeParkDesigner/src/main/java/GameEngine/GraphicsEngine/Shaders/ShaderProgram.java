@@ -1,6 +1,5 @@
 package main.java.GameEngine.GraphicsEngine.Shaders;
 
-import main.Main;
 import main.java.GameEngine.Utils.MyLogging;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
@@ -10,9 +9,9 @@ import java.util.logging.Level;
 
 public abstract class ShaderProgram
 {
-    private int programID;
-    private int vertexShaderID;
-    private int fragmentShaderID;
+    private final int programID;
+    private final int vertexShaderID;
+    private final int fragmentShaderID;
 
     public ShaderProgram(String vertexFile, String fragmentFile)
     {
