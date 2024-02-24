@@ -74,4 +74,9 @@ public class Texture
     {
         return nrChannels;
     }
+
+    public void cleanUp()
+    {
+        GL11.glDeleteTextures(this.textureID);
+    }
 }

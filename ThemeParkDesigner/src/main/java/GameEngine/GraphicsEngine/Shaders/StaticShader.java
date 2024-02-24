@@ -2,8 +2,8 @@ package main.java.GameEngine.GraphicsEngine.Shaders;
 
 public class StaticShader extends ShaderProgram
 {
-    private static final String VERTEX_FILE = "vertexShader.txt";
-    private static final String FRAGMENT_FILE = "fragmentShader.txt";
+    private static final String VERTEX_FILE = "Scene/gbuffer.vert";
+    private static final String FRAGMENT_FILE = "Scene/gbuffer.frag";
 
     public StaticShader()
     {

@@ -1,6 +1,7 @@
 package main.java.GameEngine.GraphicsEngine;
 
 import main.java.GameEngine.GraphicsEngine.Material.Material;
+import main.java.GameEngine.GraphicsEngine.Material.Texture;
 import org.lwjgl.opengl.*;
 
 import org.lwjgl.system.MemoryUtil;
@@ -102,6 +103,13 @@ public class Mesh
         for (Integer vbo : vbos)
         {
             GL15.glDeleteBuffers(vbo);
+        }
+
+        // Delete the texture
+        Texture texture = material.getTexture();
+        if (texture != null)
+        {
+            texture.cleanUp();
         }
 
         // Delete the VAO

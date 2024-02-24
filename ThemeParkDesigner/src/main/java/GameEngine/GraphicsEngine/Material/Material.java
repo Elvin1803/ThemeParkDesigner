@@ -41,11 +41,6 @@ public class Material
         texture = null;
     }
 
-    public void cleanUp()
-    {
-        GL11.glDeleteTextures(texture.getTextureID());
-    }
-
     public float getShininess()
     {
         return shininess;
