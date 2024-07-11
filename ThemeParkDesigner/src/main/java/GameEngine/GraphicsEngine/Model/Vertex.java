@@ -1,7 +1,8 @@
-package main.java.GameEngine.GraphicsEngine;
+package main.java.GameEngine.GraphicsEngine.Model;
 
-import main.java.GameEngine.Utils.Maths.Vector2f;
-import main.java.GameEngine.Utils.Maths.Vector3f;
+
+import org.joml.Vector2f;
+import org.joml.Vector3f;
 
 public class Vertex
 {

@@ -1,10 +1,17 @@
 package main.java.GameEngine.GraphicsEngine;
 
+import main.java.GameEngine.GraphicsEngine.Model.Mesh;
+import main.java.GameEngine.GraphicsEngine.Model.Model;
 import main.java.GameEngine.GraphicsEngine.Shaders.StaticShader;
+import main.java.GameEngine.Utils.Maths.Matricks;
+import main.java.GameEngine.Utils.MyLogging;
 import main.java.TPD.Scene;
+import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL30;
+
+import java.util.logging.Level;
 
 public class Renderer
 {
@@ -18,16 +25,24 @@ public class Renderer
     {
         StaticShader shader = new StaticShader();
         shader.start();
-        for (Model model : scene.getModels())
+
+        for (Entity entity : scene.getEntities())
         {
-            renderModel(model);
+            renderEntity(entity, shader);
         }
+
         shader.stop();
         shader.cleanUp();
     }
 
-    private void renderModel(Model model)
+    private void renderEntity(Entity entity, StaticShader shader)
     {
+        Model model = entity.getModel();
+        Matrix4f transformationMatrix = Matricks.createTransformationMatrix(entity.getPosition(), entity.getRotation(), entity.getScale());
+
+        MyLogging.log(Level.INFO, "Transformation matrix: \n" + transformationMatrix);
+        shader.loadTransformationMatrix(transformationMatrix);
+
         for (Mesh mesh : model.getMeshes())
         {
             renderMesh(mesh);

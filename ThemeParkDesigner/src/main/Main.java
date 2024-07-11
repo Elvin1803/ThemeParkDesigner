@@ -1,21 +1,12 @@
 package main;
 
 import main.java.GameEngine.DisplayManager;
-import main.java.GameEngine.GraphicsEngine.Material.Material;
-import main.java.GameEngine.GraphicsEngine.Material.Texture;
-import main.java.GameEngine.GraphicsEngine.Mesh;
-import main.java.GameEngine.GraphicsEngine.Model;
 import main.java.GameEngine.GraphicsEngine.Renderer;
-import main.java.GameEngine.GraphicsEngine.Shaders.StaticShader;
-import main.java.GameEngine.GraphicsEngine.Vertex;
-import main.java.GameEngine.Utils.Maths.Vector2f;
-import main.java.GameEngine.Utils.Maths.Vector3f;
 import main.java.GameEngine.Utils.MyLogging;
 import main.java.TPD.Scene;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
+
 
 public class Main implements Runnable
 {
@@ -46,6 +37,7 @@ public class Main implements Runnable
         {
             renderer.prepare();
             // Main game loop here
+            scene.update();
             render();
             update();
         }
@@ -68,7 +60,7 @@ public class Main implements Runnable
     public static void main(String[] args)
     {
         // Change to LEVEL.SEVERE for release
-        MyLogging.getLogger().setLevel(Level.SEVERE);
+        MyLogging.getLogger().setLevel(Level.INFO);
         MyLogging.log(Level.INFO, "PWD: " + System.getProperty("user.dir"));
         new Main().start();
     }

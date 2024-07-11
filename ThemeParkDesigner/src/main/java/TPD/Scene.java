@@ -1,23 +1,24 @@
 package main.java.TPD;
 
+import main.java.GameEngine.GraphicsEngine.Entity;
 import main.java.GameEngine.GraphicsEngine.Material.Material;
 import main.java.GameEngine.GraphicsEngine.Material.Texture;
-import main.java.GameEngine.GraphicsEngine.Mesh;
-import main.java.GameEngine.GraphicsEngine.Model;
-import main.java.GameEngine.GraphicsEngine.Vertex;
-import main.java.GameEngine.Utils.Maths.Vector2f;
-import main.java.GameEngine.Utils.Maths.Vector3f;
+import main.java.GameEngine.GraphicsEngine.Model.Mesh;
+import main.java.GameEngine.GraphicsEngine.Model.Model;
+import main.java.GameEngine.GraphicsEngine.Model.Vertex;
+import org.joml.Vector2f;
+import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Scene
 {
-    private List<Model> models;
+    private List<Entity> entities;
 
     public Scene()
     {
-        this.models = new ArrayList<>();
+        this.entities = new ArrayList<>();
 
         Mesh triangle0 = new Mesh(new Vertex[]{
                 new Vertex(new Vector3f(-0.6f, 0.5f, 0.0f), new Vector2f(0, 0)),
@@ -42,24 +43,37 @@ public class Scene
         temp.add(triangle0);
         temp.add(triangle1);
 
-        this.addModel(new Model(temp));
+        Model model = new Model(temp);
+        Entity entity = new Entity(model);
+
+        entity.setPosition(new Vector3f(0.5f,0,0));
+        entity.setRotation(new Vector3f(0,0,0));
+        entity.setScale(new Vector3f(1,1,1));
+
+        this.addEntity(entity);
     }
 
-    public void addModel(Model model)
+    public void update()
     {
-        models.add(model);
+        Entity entity = entities.get(0);
+        entity.setRotation(new Vector3f(entity.getRotation().x, entity.getRotation().y + 0.01f, entity.getRotation().z));
     }
 
-    public List<Model> getModels()
+    public void addEntity(Entity entity)
     {
-        return models;
+        entities.add(entity);
+    }
+
+    public List<Entity> getEntities()
+    {
+        return entities;
     }
 
     public void cleanUp()
     {
-        for (Model model : models)
+        for (Entity entity : entities)
         {
-            model.cleanUp();
+            entity.cleanUp();
         }
     }
 }

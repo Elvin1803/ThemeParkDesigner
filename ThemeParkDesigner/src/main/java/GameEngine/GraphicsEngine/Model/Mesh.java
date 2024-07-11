@@ -1,4 +1,4 @@
-package main.java.GameEngine.GraphicsEngine;
+package main.java.GameEngine.GraphicsEngine.Model;
 
 import main.java.GameEngine.GraphicsEngine.Material.Material;
 import main.java.GameEngine.GraphicsEngine.Material.Texture;

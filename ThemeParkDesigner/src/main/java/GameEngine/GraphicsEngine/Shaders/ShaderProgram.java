@@ -1,10 +1,16 @@
 package main.java.GameEngine.GraphicsEngine.Shaders;
 
 import main.java.GameEngine.Utils.MyLogging;
+import org.joml.Matrix4f;
+import org.joml.Vector3f;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
+import org.lwjgl.system.MemoryStack;
 
 import java.io.*;
+import java.nio.FloatBuffer;
+import java.util.Arrays;
 import java.util.logging.Level;
 
 public abstract class ShaderProgram
@@ -12,6 +18,7 @@ public abstract class ShaderProgram
     private final int programID;
     private final int vertexShaderID;
     private final int fragmentShaderID;
+    private static FloatBuffer matrixBuffer = BufferUtils.createFloatBuffer(16);
 
     public ShaderProgram(String vertexFile, String fragmentFile)
     {
@@ -23,6 +30,20 @@ public abstract class ShaderProgram
         GL20.glAttachShader(programID, fragmentShaderID);
         GL20.glLinkProgram(programID);
         GL20.glValidateProgram(programID);
+        getAllUniformLocations();
+    }
+
+    protected abstract void getAllUniformLocations();
+
+    protected int getUniformLocation(String uniformName)
+    {
+        MyLogging.log(Level.INFO, "Shader program id: " + programID);
+        MyLogging.log(Level.INFO, "Uniform name: " + uniformName);
+
+        int uniformLocation = GL20.glGetUniformLocation(programID, uniformName);
+        MyLogging.log(Level.INFO, "Uniform location: " + uniformLocation);
+
+        return uniformLocation;
     }
 
     public void start()
@@ -50,6 +71,28 @@ public abstract class ShaderProgram
     protected void bindAttribute(int attribute, String variableName)
     {
         GL20.glBindAttribLocation(programID, attribute, variableName);
+    }
+
+    protected void loadFloat(int location, float value)
+    {
+        GL20.glUniform1f(location, value);
+    }
+
+    protected void loadVector(int location, Vector3f vector)
+    {
+        GL20.glUniform3f(location, vector.x, vector.y, vector.z);
+    }
+
+    protected void loadBoolean(int location, boolean value)
+    {
+        float toLoad = value ? 1 : 0;
+        GL20.glUniform1f(location, toLoad);
+    }
+
+    protected void loadMatrix(int location, Matrix4f matrix)
+    {
+        matrix.get(matrixBuffer);
+        GL20.glUniformMatrix4fv(location, false, matrixBuffer);
     }
 
     private static int loadShader(String file, int type)

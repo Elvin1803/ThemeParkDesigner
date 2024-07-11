@@ -1,7 +1,7 @@
 package main.java.GameEngine.GraphicsEngine.Material;
 
-import main.java.GameEngine.Utils.Maths.Vector3f;
-import org.lwjgl.opengl.GL11;
+
+import org.joml.Vector3f;
 
 public class Material
 {

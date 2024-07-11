@@ -1,4 +1,4 @@
-package main.java.GameEngine.GraphicsEngine;
+package main.java.GameEngine.GraphicsEngine.Model;
 
 import java.util.List;
 
