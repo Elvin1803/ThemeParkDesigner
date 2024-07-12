@@ -7,8 +7,9 @@ public class StaticShader extends ShaderProgram
     private static final String VERTEX_FILE = "Scene/gbuffer.vert";
     private static final String FRAGMENT_FILE = "Scene/gbuffer.frag";
 
-    private int location_transformationMatrix;
     private int location_projectionMatrix;
+    private int location_viewMatrix;
+    private int location_transformationMatrix;
 
     public StaticShader()
     {
@@ -18,8 +19,9 @@ public class StaticShader extends ShaderProgram
     @Override
     protected void getAllUniformLocations()
     {
-        location_transformationMatrix = super.getUniformLocation("transformationMatrix");
         location_projectionMatrix = super.getUniformLocation("projectionMatrix");
+        location_viewMatrix = super.getUniformLocation("viewMatrix");
+        location_transformationMatrix = super.getUniformLocation("transformationMatrix");
     }
 
     @Override
@@ -29,13 +31,18 @@ public class StaticShader extends ShaderProgram
         super.bindAttribute(1, "textureCoords");
     }
 
-    public void loadTransformationMatrix(Matrix4f matrix)
-    {
-        super.loadMatrix(location_transformationMatrix, matrix);
-    }
-
     public void loadProjectionMatrix(Matrix4f matrix)
     {
         super.loadMatrix(location_projectionMatrix, matrix);
+    }
+
+    public void loadViewMatrix(Matrix4f matrix)
+    {
+        super.loadMatrix(location_viewMatrix, matrix);
+    }
+
+    public void loadTransformationMatrix(Matrix4f matrix)
+    {
+        super.loadMatrix(location_transformationMatrix, matrix);
     }
 }

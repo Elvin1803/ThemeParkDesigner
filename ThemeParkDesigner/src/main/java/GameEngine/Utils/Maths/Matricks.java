@@ -16,4 +16,14 @@ public class Matricks
 
         return matrix;
     }
+
+    public static Matrix4f createViewMatrix(Vector3f position, Vector3f rotation)
+    {
+        Matrix4f matrix = new Matrix4f();
+        matrix.identity();
+        matrix.rotateXYZ(rotation);
+        matrix.translate(-position.x, -position.y, -position.z);
+
+        return matrix;
+    }
 }

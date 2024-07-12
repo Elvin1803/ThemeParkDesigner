@@ -1,5 +1,6 @@
 package main.java.TPD;
 
+import main.java.GameEngine.GraphicsEngine.Camera;
 import main.java.GameEngine.GraphicsEngine.Entity;
 import main.java.GameEngine.GraphicsEngine.Material.Material;
 import main.java.GameEngine.GraphicsEngine.Material.Texture;
@@ -57,6 +58,8 @@ public class Scene
     {
         Entity entity = entities.get(0);
         entity.setRotation(new Vector3f(entity.getRotation().x, entity.getRotation().y + 0.01f, entity.getRotation().z));
+
+        Camera.setRotation(new Vector3f(Camera.getRotation().x, Camera.getRotation().y + 0.01f, Camera.getRotation().z));
     }
 
     public void addEntity(Entity entity)

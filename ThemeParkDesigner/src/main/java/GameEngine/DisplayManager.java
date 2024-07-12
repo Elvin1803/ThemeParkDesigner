@@ -11,16 +11,16 @@ public class DisplayManager
 {
     private final String title;
 
-    private final int width;
-    private final int height;
+    private static int width = 1280;
+    private static int height = 720;
 
     private long window;
 
     public DisplayManager(String title, int width, int height)
     {
         this.title = title;
-        this.width = width;
-        this.height = height;
+        DisplayManager.width = width;
+        DisplayManager.height = height;
     }
 
     public void createDisplay()
@@ -67,12 +67,12 @@ public class DisplayManager
         return GLFW.glfwWindowShouldClose(window);
     }
 
-    public int getWidth()
+    public static int getWidth()
     {
         return width;
     }
 
-    public int getHeight()
+    public static int getHeight()
     {
         return height;
     }

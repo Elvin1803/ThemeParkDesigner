@@ -27,7 +27,7 @@ public class Main implements Runnable
         displayManager.createDisplay();
 
         scene = new Scene();
-        renderer = new Renderer(displayManager.getWidth(), displayManager.getHeight());
+        renderer = new Renderer();
     }
 
     public void run()

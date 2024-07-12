@@ -1,5 +1,6 @@
 package main.java.GameEngine.GraphicsEngine;
 
+import main.java.GameEngine.DisplayManager;
 import main.java.GameEngine.GraphicsEngine.Model.Mesh;
 import main.java.GameEngine.GraphicsEngine.Model.Model;
 import main.java.GameEngine.GraphicsEngine.Shaders.StaticShader;
@@ -15,39 +16,14 @@ import java.util.logging.Level;
 
 public class Renderer
 {
-    int width;
-    int height;
-    private float FOV = 90;
+    private static final StaticShader shader = new StaticShader();
 
-    private final StaticShader shader = new StaticShader();
+    private static final Camera camera = new Camera();
 
-    public Renderer(int width, int height)
+    public Renderer()
     {
-        this.width = width;
-        this.height = height;
-
         updateProjectionMatrix();
-    }
-
-    public void setFOV(float FOV)
-    {
-        this.FOV = FOV;
-
-        updateProjectionMatrix();
-    }
-
-    public void setWidth(int width)
-    {
-        this.width = width;
-
-        updateProjectionMatrix();
-    }
-
-    public void setHeight(int height)
-    {
-        this.height = height;
-
-        updateProjectionMatrix();
+        updateViewMatrix();
     }
 
     public void prepare()
@@ -62,13 +38,13 @@ public class Renderer
 
         for (Entity entity : scene.getEntities())
         {
-            renderEntity(entity, shader);
+            renderEntity(entity);
         }
 
         shader.stop();
     }
 
-    private void renderEntity(Entity entity, StaticShader shader)
+    private void renderEntity(Entity entity)
     {
         Model model = entity.getModel();
         Matrix4f transformationMatrix = Matricks.createTransformationMatrix(entity.getPosition(), entity.getRotation(), entity.getScale());
@@ -95,17 +71,27 @@ public class Renderer
         GL30.glBindVertexArray(0);
     }
 
-    private void updateProjectionMatrix()
+    public static void updateProjectionMatrix()
     {
         float NEAR_PLANE = 0.1f;
         float FAR_PLANE = 1000;
 
         Matrix4f projectionMatrix = new Matrix4f();
-        projectionMatrix.setPerspective((float)Math.toRadians(FOV), (float) width / (float) height, NEAR_PLANE, FAR_PLANE);
+        projectionMatrix.setPerspective((float)Math.toRadians(camera.getFOV()), ((float) DisplayManager.getWidth() / (float) DisplayManager.getHeight()), NEAR_PLANE, FAR_PLANE);
 
         shader.start();
         MyLogging.log(Level.INFO, "Projection matrix: \n" + projectionMatrix);
         shader.loadProjectionMatrix(projectionMatrix);
+        shader.stop();
+    }
+
+    public static void updateViewMatrix()
+    {
+        Matrix4f viewMatrix = Matricks.createViewMatrix(Camera.getPosition(), Camera.getRotation());
+
+        shader.start();
+        MyLogging.log(Level.INFO, "View matrix: \n" + viewMatrix);
+        shader.loadViewMatrix(viewMatrix);
         shader.stop();
     }
 
