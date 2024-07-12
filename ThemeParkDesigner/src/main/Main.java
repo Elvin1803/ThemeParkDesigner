@@ -24,10 +24,10 @@ public class Main implements Runnable
     public void init()
     {
         displayManager = new DisplayManager("Theme Park Designer", 1280, 720);
-        renderer = new Renderer();
         displayManager.createDisplay();
 
         scene = new Scene();
+        renderer = new Renderer(displayManager.getWidth(), displayManager.getHeight());
     }
 
     public void run()
@@ -43,6 +43,7 @@ public class Main implements Runnable
         }
 
         scene.cleanUp();
+        renderer.cleanUp();
         MyLogging.log(Level.INFO, "Exiting Application.");
     }
 

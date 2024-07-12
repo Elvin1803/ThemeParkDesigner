@@ -46,7 +46,7 @@ public class Scene
         Model model = new Model(temp);
         Entity entity = new Entity(model);
 
-        entity.setPosition(new Vector3f(0.5f,0,0));
+        entity.setPosition(new Vector3f(0,0,-2));
         entity.setRotation(new Vector3f(0,0,0));
         entity.setScale(new Vector3f(1,1,1));
 

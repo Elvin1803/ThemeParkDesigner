@@ -15,6 +15,41 @@ import java.util.logging.Level;
 
 public class Renderer
 {
+    int width;
+    int height;
+    private float FOV = 90;
+
+    private final StaticShader shader = new StaticShader();
+
+    public Renderer(int width, int height)
+    {
+        this.width = width;
+        this.height = height;
+
+        updateProjectionMatrix();
+    }
+
+    public void setFOV(float FOV)
+    {
+        this.FOV = FOV;
+
+        updateProjectionMatrix();
+    }
+
+    public void setWidth(int width)
+    {
+        this.width = width;
+
+        updateProjectionMatrix();
+    }
+
+    public void setHeight(int height)
+    {
+        this.height = height;
+
+        updateProjectionMatrix();
+    }
+
     public void prepare()
     {
         GL11.glClearColor(1, 0, 0, 1);
@@ -23,7 +58,6 @@ public class Renderer
 
     public void renderScene(Scene scene)
     {
-        StaticShader shader = new StaticShader();
         shader.start();
 
         for (Entity entity : scene.getEntities())
@@ -32,7 +66,6 @@ public class Renderer
         }
 
         shader.stop();
-        shader.cleanUp();
     }
 
     private void renderEntity(Entity entity, StaticShader shader)
@@ -60,5 +93,24 @@ public class Renderer
         GL30.glDisableVertexAttribArray(0);
         GL30.glDisableVertexAttribArray(1);
         GL30.glBindVertexArray(0);
+    }
+
+    private void updateProjectionMatrix()
+    {
+        float NEAR_PLANE = 0.1f;
+        float FAR_PLANE = 1000;
+
+        Matrix4f projectionMatrix = new Matrix4f();
+        projectionMatrix.setPerspective((float)Math.toRadians(FOV), (float) width / (float) height, NEAR_PLANE, FAR_PLANE);
+
+        shader.start();
+        MyLogging.log(Level.INFO, "Projection matrix: \n" + projectionMatrix);
+        shader.loadProjectionMatrix(projectionMatrix);
+        shader.stop();
+    }
+
+    public void cleanUp()
+    {
+        shader.cleanUp();
     }
 }
