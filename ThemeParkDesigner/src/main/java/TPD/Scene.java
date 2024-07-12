@@ -7,6 +7,8 @@ import main.java.GameEngine.GraphicsEngine.Material.Texture;
 import main.java.GameEngine.GraphicsEngine.Model.Mesh;
 import main.java.GameEngine.GraphicsEngine.Model.Model;
 import main.java.GameEngine.GraphicsEngine.Model.Vertex;
+import main.java.TPD.CameraModes.CameraMode;
+import main.java.TPD.CameraModes.FreeCamera;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
@@ -15,6 +17,7 @@ import java.util.List;
 
 public class Scene
 {
+    private CameraMode camera = new FreeCamera();
     private List<Entity> entities;
 
     public Scene()
@@ -22,18 +25,18 @@ public class Scene
         this.entities = new ArrayList<>();
 
         Mesh triangle0 = new Mesh(new Vertex[]{
-                new Vertex(new Vector3f(-0.6f, 0.5f, 0.0f), new Vector2f(0, 0)),
-                new Vertex(new Vector3f(-0.6f, -0.5f, 0.0f), new Vector2f(0, 1)),
-                new Vertex(new Vector3f(0.4f, 0.5f, 0.0f), new Vector2f(1, 0))
+                new Vertex(new Vector3f(-0.6f, 0.5f, 1), new Vector2f(0, 0)),
+                new Vertex(new Vector3f(-0.6f, -0.5f, 1), new Vector2f(0, 1)),
+                new Vertex(new Vector3f(0.4f, 0.5f, 1), new Vector2f(1, 0))
         }, new int[]{
                 0, 1, 2
         }, new Material(new Texture("assets/test.png")));
         triangle0.createVao();
 
         Mesh triangle1 = new Mesh(new Vertex[]{
-                new Vertex(new Vector3f(-0.5f, -0.5f, 0.0f), new Vector2f(0, 1)),
-                new Vertex(new Vector3f(0.5f, 0.5f, 0.0f), new Vector2f(1, 0)),
-                new Vertex(new Vector3f(0.5f, -0.5f, 0.0f), new Vector2f(1, 1)),
+                new Vertex(new Vector3f(-0.5f, -0.5f, -1), new Vector2f(0, 1)),
+                new Vertex(new Vector3f(0.5f, 0.5f, -1), new Vector2f(1, 0)),
+                new Vertex(new Vector3f(0.5f, -0.5f, -1), new Vector2f(1, 1)),
         }, new int[]{
                 0, 1, 2
         }, new Material(new Texture("assets/test.png")));
@@ -47,7 +50,7 @@ public class Scene
         Model model = new Model(temp);
         Entity entity = new Entity(model);
 
-        entity.setPosition(new Vector3f(0,0,-2));
+        entity.setPosition(new Vector3f(0,0,0));
         entity.setRotation(new Vector3f(0,0,0));
         entity.setScale(new Vector3f(1,1,1));
 
@@ -59,7 +62,8 @@ public class Scene
         Entity entity = entities.get(0);
         entity.setRotation(new Vector3f(entity.getRotation().x, entity.getRotation().y + 0.01f, entity.getRotation().z));
 
-        Camera.setRotation(new Vector3f(Camera.getRotation().x, Camera.getRotation().y + 0.01f, Camera.getRotation().z));
+        //Camera.setRotation(new Vector3f(Camera.getRotation().x, Camera.getRotation().y + 0.01f, Camera.getRotation().z));
+        camera.update();
     }
 
     public void addEntity(Entity entity)

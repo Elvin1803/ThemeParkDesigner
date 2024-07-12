@@ -38,6 +38,8 @@ public class DisplayManager
             return;
         }
 
+        GLFW.glfwSetKeyCallback(window, KeyListener::keyCallback);
+
         GLFWVidMode videoMode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
         if (videoMode == null)
         {

@@ -18,8 +18,6 @@ public class Renderer
 {
     private static final StaticShader shader = new StaticShader();
 
-    private static final Camera camera = new Camera();
-
     public Renderer()
     {
         updateProjectionMatrix();
@@ -28,8 +26,9 @@ public class Renderer
 
     public void prepare()
     {
-        GL11.glClearColor(1, 0, 0, 1);
-        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_DEPTH_BUFFER_BIT);
+        GL11.glClearColor(1, 1, 1, 1);
     }
 
     public void renderScene(Scene scene)
@@ -49,7 +48,7 @@ public class Renderer
         Model model = entity.getModel();
         Matrix4f transformationMatrix = Matricks.createTransformationMatrix(entity.getPosition(), entity.getRotation(), entity.getScale());
 
-        MyLogging.log(Level.INFO, "Transformation matrix: \n" + transformationMatrix);
+        //MyLogging.log(Level.INFO, "Transformation matrix: \n" + transformationMatrix);
         shader.loadTransformationMatrix(transformationMatrix);
 
         for (Mesh mesh : model.getMeshes())
@@ -77,10 +76,14 @@ public class Renderer
         float FAR_PLANE = 1000;
 
         Matrix4f projectionMatrix = new Matrix4f();
-        projectionMatrix.setPerspective((float)Math.toRadians(camera.getFOV()), ((float) DisplayManager.getWidth() / (float) DisplayManager.getHeight()), NEAR_PLANE, FAR_PLANE);
+        projectionMatrix.setPerspective(
+                (float)Math.toRadians(Camera.getFOV()),
+                ((float) DisplayManager.getWidth() / (float) DisplayManager.getHeight()),
+                NEAR_PLANE,
+                FAR_PLANE);
 
         shader.start();
-        MyLogging.log(Level.INFO, "Projection matrix: \n" + projectionMatrix);
+        //MyLogging.log(Level.INFO, "Projection matrix: \n" + projectionMatrix);
         shader.loadProjectionMatrix(projectionMatrix);
         shader.stop();
     }
@@ -90,7 +93,7 @@ public class Renderer
         Matrix4f viewMatrix = Matricks.createViewMatrix(Camera.getPosition(), Camera.getRotation());
 
         shader.start();
-        MyLogging.log(Level.INFO, "View matrix: \n" + viewMatrix);
+        //MyLogging.log(Level.INFO, "View matrix: \n" + viewMatrix);
         shader.loadViewMatrix(viewMatrix);
         shader.stop();
     }

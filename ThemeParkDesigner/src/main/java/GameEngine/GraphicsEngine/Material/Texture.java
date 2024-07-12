@@ -34,10 +34,7 @@ public class Texture
             return;
         }
 
-        MyLogging.log(Level.INFO, "Texture: " + texturePath);
-        MyLogging.log(Level.INFO, "Image width: " + width.get(0));
-        MyLogging.log(Level.INFO, "Image height: " + height.get(0));
-        MyLogging.log(Level.INFO, "Image nrChannels: " + nrChannels.get(0));
+        MyLogging.log(Level.INFO, "Texture: " + texturePath + "\nImage width: " + width.get(0) + "\nImage height: " + height.get(0) + "\nImage nrChannels: " + nrChannels.get(0));
         this.width = width.get(0);
         this.height = height.get(0);
         this.nrChannels = nrChannels.get(0);

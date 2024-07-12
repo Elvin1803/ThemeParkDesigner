@@ -10,7 +10,7 @@ import java.util.logging.Level;
 
 public class Camera
 {
-    private static float FOV = 90;
+    private static float FOV = 70;
     private static Vector3f position = new Vector3f(0,0,0);
     private static Vector3f rotation = new Vector3f(0,0,0);
 

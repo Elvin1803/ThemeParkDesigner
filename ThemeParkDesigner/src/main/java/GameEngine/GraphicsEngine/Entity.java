@@ -3,7 +3,9 @@ package main.java.GameEngine.GraphicsEngine;
 import main.java.GameEngine.GraphicsEngine.Model.Model;
 import org.joml.Vector3f;
 
-public class Entity
+// maybe make this class abstract
+// will contain the 3d model and the behaviour
+public  class Entity
 {
     private final Model model;
 

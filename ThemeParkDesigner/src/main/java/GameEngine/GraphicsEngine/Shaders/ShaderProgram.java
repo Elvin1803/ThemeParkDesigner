@@ -18,7 +18,7 @@ public abstract class ShaderProgram
     private final int programID;
     private final int vertexShaderID;
     private final int fragmentShaderID;
-    private static FloatBuffer matrixBuffer = BufferUtils.createFloatBuffer(16);
+    private static final FloatBuffer matrixBuffer = BufferUtils.createFloatBuffer(16);
 
     public ShaderProgram(String vertexFile, String fragmentFile)
     {
@@ -37,11 +37,9 @@ public abstract class ShaderProgram
 
     protected int getUniformLocation(String uniformName)
     {
-        MyLogging.log(Level.INFO, "Shader program id: " + programID);
-        MyLogging.log(Level.INFO, "Uniform name: " + uniformName);
-
         int uniformLocation = GL20.glGetUniformLocation(programID, uniformName);
-        MyLogging.log(Level.INFO, "Uniform location: " + uniformLocation);
+
+        MyLogging.log(Level.INFO, "Shader program id: " + programID + "\nUniform name: " + uniformName + "\nUniform location: " + uniformLocation);
 
         return uniformLocation;
     }
