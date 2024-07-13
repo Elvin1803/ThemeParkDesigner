@@ -1,6 +1,5 @@
 package main.java.TPD;
 
-import main.java.GameEngine.GraphicsEngine.Camera;
 import main.java.GameEngine.GraphicsEngine.Entity;
 import main.java.GameEngine.GraphicsEngine.Material.Material;
 import main.java.GameEngine.GraphicsEngine.Material.Texture;

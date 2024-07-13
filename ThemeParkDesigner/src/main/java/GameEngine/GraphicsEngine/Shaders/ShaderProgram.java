@@ -6,11 +6,9 @@ import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
-import org.lwjgl.system.MemoryStack;
 
 import java.io.*;
 import java.nio.FloatBuffer;
-import java.util.Arrays;
 import java.util.logging.Level;
 
 public abstract class ShaderProgram

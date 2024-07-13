@@ -2,11 +2,9 @@ package main;
 
 import main.java.GameEngine.DisplayManager;
 import main.java.GameEngine.GraphicsEngine.Renderer;
-import main.java.GameEngine.KeyListener;
 import main.java.GameEngine.Utils.MyLogging;
 import main.java.TPD.Scene;
 import main.java.TPD.Settings.KeyMap;
-import org.lwjgl.glfw.GLFW;
 
 import java.util.logging.Level;
 

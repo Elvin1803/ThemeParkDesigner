@@ -1,12 +1,7 @@
 package main.java.GameEngine.GraphicsEngine;
 
-import main.java.GameEngine.DisplayManager;
-import main.java.GameEngine.Utils.Maths.Matricks;
 import main.java.GameEngine.Utils.MyLogging;
-import org.joml.Matrix4f;
 import org.joml.Vector3f;
-
-import java.util.logging.Level;
 
 public class Camera
 {

@@ -5,7 +5,7 @@ import org.joml.Vector3f;
 
 // maybe make this class abstract
 // will contain the 3d model and the behaviour
-public  class Entity
+public class Entity
 {
     private final Model model;
 
