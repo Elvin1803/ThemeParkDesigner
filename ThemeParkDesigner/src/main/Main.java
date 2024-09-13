@@ -12,7 +12,6 @@ import java.util.logging.Level;
 public class Main implements Runnable
 {
     private DisplayManager displayManager;
-    private Renderer renderer;
     private Scene scene;
 
     public void start()
@@ -28,7 +27,6 @@ public class Main implements Runnable
         displayManager.createDisplay();
 
         scene = new Scene();
-        renderer = new Renderer();
 
         KeyMap keyMap = new KeyMap();
     }
@@ -38,7 +36,6 @@ public class Main implements Runnable
         init();
         while (!displayManager.shouldClose())
         {
-            renderer.prepare();
             // Main game loop here
             scene.update();
             render();
@@ -46,7 +43,6 @@ public class Main implements Runnable
         }
 
         scene.cleanUp();
-        renderer.cleanUp();
         MyLogging.log(Level.INFO, "Exiting Application.");
     }
 
@@ -57,7 +53,6 @@ public class Main implements Runnable
 
     public void render()
     {
-        renderer.renderScene(scene);
         displayManager.swapBuffers();
     }
 

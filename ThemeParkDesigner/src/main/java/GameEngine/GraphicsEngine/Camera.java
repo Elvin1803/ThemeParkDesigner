@@ -1,49 +1,90 @@
 package main.java.GameEngine.GraphicsEngine;
 
+import main.java.GameEngine.DisplayManager;
+import main.java.GameEngine.GraphicsEngine.Model.Mesh;
+import main.java.GameEngine.Utils.Maths.Matricks;
 import main.java.GameEngine.Utils.MyLogging;
+import org.joml.Matrix4f;
 import org.joml.Vector3f;
+
+import java.util.List;
 
 public class Camera
 {
-    private static float FOV = 70;
-    private static Vector3f position = new Vector3f(0,0,0);
-    private static Vector3f rotation = new Vector3f(0,0,0);
+    private final Renderer renderer;
+    float NEAR_PLANE = 0.1f;
+    float FAR_PLANE = 1000;
+    private float FOV = 70;
+    private Matrix4f projectionMatrix;
 
-    public Camera(){}
+    private Vector3f position = new Vector3f(0,0,0);
+    private Vector3f rotation = new Vector3f(0,0,0);
+    private Matrix4f viewMatrix;
 
-    public static void setFOV(float FOV)
+    public Camera()
     {
-        Camera.FOV = FOV;
+        projectionMatrix = new Matrix4f();
+        projectionMatrix.setPerspective(
+                (float)Math.toRadians(this.FOV),
+                ((float) DisplayManager.getWidth() / (float) DisplayManager.getHeight()),
+                NEAR_PLANE,
+                FAR_PLANE);
 
-        Renderer.updateProjectionMatrix();
+        viewMatrix = Matricks.createViewMatrix(this.position, this.rotation);
+
+        this.renderer = new Renderer(projectionMatrix, viewMatrix);
     }
 
-    public static void setPosition(Vector3f position)
+    public void setFOV(float FOV)
     {
-        Camera.position = position;
+        this.FOV = FOV;
 
-        Renderer.updateViewMatrix();
+        projectionMatrix = new Matrix4f();
+        projectionMatrix.setPerspective(
+                (float)Math.toRadians(this.FOV),
+                ((float) DisplayManager.getWidth() / (float) DisplayManager.getHeight()),
+                NEAR_PLANE,
+                FAR_PLANE);
+
+        this.renderer.updateProjectionMatrix(projectionMatrix);
     }
 
-    public static void setRotation(Vector3f rotation)
+    public void setPosRot(Vector3f position, Vector3f rotation)
     {
-        Camera.rotation = rotation;
+        this.position = position;
+        this.rotation = rotation;
+        viewMatrix = Matricks.createViewMatrix(this.position, this.rotation);
 
-        Renderer.updateViewMatrix();
+        this.renderer.updateViewMatrix(viewMatrix);
     }
 
-    public static float getFOV()
+    public float getFOV()
     {
-        return FOV;
+        return this.FOV;
     }
 
-    public static Vector3f getPosition()
+    public Vector3f getPosition()
     {
-        return position;
+        return this.position;
     }
 
-    public static Vector3f getRotation()
+    public Vector3f getRotation()
     {
-        return rotation;
+        return this.rotation;
+    }
+
+    public void prepare()
+    {
+        this.renderer.prepare();
+    }
+
+    public void renderEntities(List<Entity> entities)
+    {
+        renderer.renderEntities(entities);
+    }
+
+    public void cleanUp()
+    {
+        this.renderer.cleanUp();
     }
 }

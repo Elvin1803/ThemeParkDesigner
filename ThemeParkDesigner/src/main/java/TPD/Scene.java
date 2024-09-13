@@ -1,13 +1,12 @@
 package main.java.TPD;
 
+import main.java.GameEngine.GraphicsEngine.Camera;
 import main.java.GameEngine.GraphicsEngine.Entity;
 import main.java.GameEngine.GraphicsEngine.Material.Material;
 import main.java.GameEngine.GraphicsEngine.Material.Texture;
 import main.java.GameEngine.GraphicsEngine.Model.Mesh;
 import main.java.GameEngine.GraphicsEngine.Model.Model;
 import main.java.GameEngine.GraphicsEngine.Model.Vertex;
-import main.java.TPD.CameraModes.CameraMode;
-import main.java.TPD.CameraModes.FreeCamera;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
@@ -16,7 +15,7 @@ import java.util.List;
 
 public class Scene
 {
-    private CameraMode camera = new FreeCamera();
+    private Camera camera = new Camera();
     private List<Entity> entities;
 
     public Scene()
@@ -61,8 +60,14 @@ public class Scene
         Entity entity = entities.get(0);
         entity.setRotation(new Vector3f(entity.getRotation().x, entity.getRotation().y + 0.01f, entity.getRotation().z));
 
-        //Camera.setRotation(new Vector3f(Camera.getRotation().x, Camera.getRotation().y + 0.01f, Camera.getRotation().z));
-        camera.update();
+        camera.setPosRot(camera.getPosition(), new Vector3f(camera.getRotation().x, camera.getRotation().y + 0.01f, camera.getRotation().z));
+        renderScene(camera);
+    }
+
+    private void renderScene(Camera camera)
+    {
+        camera.prepare();
+        camera.renderEntities(this.entities);
     }
 
     public void addEntity(Entity entity)
@@ -81,5 +86,7 @@ public class Scene
         {
             entity.cleanUp();
         }
+
+        camera.cleanUp();
     }
 }

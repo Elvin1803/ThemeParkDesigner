@@ -12,16 +12,17 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL30;
 
+import java.util.List;
 import java.util.logging.Level;
 
 public class Renderer
 {
-    private static final StaticShader shader = new StaticShader();
+    private final StaticShader shader = new StaticShader();
 
-    public Renderer()
+    public Renderer(Matrix4f projectionMatrix, Matrix4f viewMatrix)
     {
-        updateProjectionMatrix();
-        updateViewMatrix();
+        updateProjectionMatrix(projectionMatrix);
+        updateViewMatrix(viewMatrix);
     }
 
     public void prepare()
@@ -31,19 +32,19 @@ public class Renderer
         GL11.glClearColor(1, 1, 1, 1);
     }
 
-    public void renderScene(Scene scene)
+    public void renderEntities(List<Entity> entities)
     {
-        shader.start();
+        this.shader.start();
 
-        for (Entity entity : scene.getEntities())
+        for (Entity entity : entities)
         {
-            renderEntity(entity);
+            this.renderEntity(entity);
         }
 
-        shader.stop();
+        this.shader.stop();
     }
 
-    private void renderEntity(Entity entity)
+    public void renderEntity(Entity entity)
     {
         Model model = entity.getModel();
         Matrix4f transformationMatrix = Matricks.createTransformationMatrix(entity.getPosition(), entity.getRotation(), entity.getScale());
@@ -70,28 +71,16 @@ public class Renderer
         GL30.glBindVertexArray(0);
     }
 
-    public static void updateProjectionMatrix()
+    public void updateProjectionMatrix(Matrix4f projectionMatrix)
     {
-        float NEAR_PLANE = 0.1f;
-        float FAR_PLANE = 1000;
-
-        Matrix4f projectionMatrix = new Matrix4f();
-        projectionMatrix.setPerspective(
-                (float)Math.toRadians(Camera.getFOV()),
-                ((float) DisplayManager.getWidth() / (float) DisplayManager.getHeight()),
-                NEAR_PLANE,
-                FAR_PLANE);
-
         shader.start();
         //MyLogging.log(Level.INFO, "Projection matrix: \n" + projectionMatrix);
         shader.loadProjectionMatrix(projectionMatrix);
         shader.stop();
     }
 
-    public static void updateViewMatrix()
+    public void updateViewMatrix(Matrix4f viewMatrix)
     {
-        Matrix4f viewMatrix = Matricks.createViewMatrix(Camera.getPosition(), Camera.getRotation());
-
         shader.start();
         //MyLogging.log(Level.INFO, "View matrix: \n" + viewMatrix);
         shader.loadViewMatrix(viewMatrix);

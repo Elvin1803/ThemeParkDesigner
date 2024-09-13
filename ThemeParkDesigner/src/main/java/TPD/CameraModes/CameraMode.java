@@ -10,11 +10,13 @@ public abstract class CameraMode
 
     public void update()
     {
+        /*
         if (moveCamera())
         {
             Camera.setPosition(position);
             Camera.setRotation(rotation);
         }
+        */
     }
 
     /*
