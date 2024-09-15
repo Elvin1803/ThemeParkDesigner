@@ -1,19 +1,15 @@
 package main.java.GameEngine.GraphicsEngine;
 
-import main.java.GameEngine.DisplayManager;
 import main.java.GameEngine.GraphicsEngine.Model.Mesh;
 import main.java.GameEngine.GraphicsEngine.Model.Model;
 import main.java.GameEngine.GraphicsEngine.Shaders.StaticShader;
 import main.java.GameEngine.Utils.Maths.Matricks;
-import main.java.GameEngine.Utils.MyLogging;
-import main.java.TPD.Scene;
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL30;
 
 import java.util.List;
-import java.util.logging.Level;
 
 public class Renderer
 {

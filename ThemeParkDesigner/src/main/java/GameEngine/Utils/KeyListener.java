@@ -1,4 +1,4 @@
-package main.java.GameEngine;
+package main.java.GameEngine.Utils;
 
 import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;

@@ -10,7 +10,7 @@ public class KeyMap
 
     public KeyMap()
     {
-        // check for a config.ini or smth idk
+        // check for a config.ini or something I don't know
         keyMap.put(KeyMapping.FORWARD, GLFW.GLFW_KEY_W);
         keyMap.put(KeyMapping.BACKWARD, GLFW.GLFW_KEY_S);
         keyMap.put(KeyMapping.LEFT, GLFW.GLFW_KEY_A);

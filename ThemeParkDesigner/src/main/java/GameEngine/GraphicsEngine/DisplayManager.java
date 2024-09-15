@@ -1,5 +1,6 @@
-package main.java.GameEngine;
+package main.java.GameEngine.GraphicsEngine;
 
+import main.java.GameEngine.Utils.KeyListener;
 import main.java.GameEngine.Utils.MyLogging;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWVidMode;

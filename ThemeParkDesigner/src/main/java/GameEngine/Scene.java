@@ -1,4 +1,4 @@
-package main.java.TPD;
+package main.java.GameEngine;
 
 import main.java.GameEngine.GraphicsEngine.Camera;
 import main.java.GameEngine.GraphicsEngine.Entity;

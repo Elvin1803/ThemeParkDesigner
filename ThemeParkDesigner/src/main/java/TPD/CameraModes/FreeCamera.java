@@ -1,10 +1,8 @@
 package main.java.TPD.CameraModes;
 
-import main.java.GameEngine.KeyListener;
+import main.java.GameEngine.Utils.KeyListener;
 import main.java.TPD.Settings.KeyMap;
 import org.joml.Vector3f;
-
-import java.util.logging.Level;
 
 public class FreeCamera extends CameraMode
 {
