@@ -8,7 +8,7 @@ import java.util.logging.Level;
 public class Application
 {
     private final DisplayManager displayManager;
-    public Scene currentScene;
+    public SceneManager sceneManager;
 
     public Application(String title)
     {
@@ -17,7 +17,7 @@ public class Application
         displayManager = new DisplayManager(title, 1280, 720);
         displayManager.createDisplay();
 
-        currentScene = new Scene();
+        sceneManager = SceneManager.getInstance();
     }
 
     public void run()
@@ -27,11 +27,9 @@ public class Application
             // Main game loop here
             // Update current Scene
 
-            currentScene.update();
+            sceneManager.update();
             displayManager.swapBuffers();
             displayManager.updateDisplay();
         }
-
-        currentScene.cleanUp();
     }
 }
