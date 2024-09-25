@@ -1,4 +1,4 @@
-package main.java.GameEngine.GraphicsEngine;
+package main.java.GameEngine.GraphicsEngine.Display;
 
 import main.java.GameEngine.Utils.KeyListener;
 import main.java.GameEngine.Utils.MyLogging;

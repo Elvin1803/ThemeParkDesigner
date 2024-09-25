@@ -1,6 +1,6 @@
 package main.java.GameEngine;
 
-import main.java.GameEngine.GraphicsEngine.DisplayManager;
+import main.java.GameEngine.GraphicsEngine.Display.DisplayManager;
 import main.java.GameEngine.Utils.MyLogging;
 
 import java.util.logging.Level;

@@ -12,15 +12,6 @@ public class ThemeParkDesigner extends Application
         super("Theme Park Designer");
         SceneManager.changeScene(new MainMenuScene());
 
-        try
-        {
-            Thread.sleep(3000);
-        }
-        catch (InterruptedException e)
-        {
-            throw new RuntimeException(e);
-        }
-
-        SceneManager.changeScene(new TestScene());
+        // SceneManager.changeScene(new TestScene());
     }
 }

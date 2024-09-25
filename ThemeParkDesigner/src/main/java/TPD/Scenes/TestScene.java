@@ -1,6 +1,6 @@
 package main.java.TPD.Scenes;
 
-import main.java.GameEngine.GraphicsEngine.Entity;
+import main.java.GameEngine.ECS.Entity;
 import main.java.GameEngine.GraphicsEngine.Material.Material;
 import main.java.GameEngine.GraphicsEngine.Material.Texture;
 import main.java.GameEngine.GraphicsEngine.Model.Mesh;
@@ -15,6 +15,7 @@ import java.util.List;
 
 public class TestScene extends Scene
 {
+    /*
     public TestScene()
     {
         this.entities = new ArrayList<>();
@@ -61,4 +62,5 @@ public class TestScene extends Scene
         camera.setPosRot(camera.getPosition(), new Vector3f(camera.getRotation().x, camera.getRotation().y + 0.01f, camera.getRotation().z));
         renderScene(camera);
     }
+     */
 }
