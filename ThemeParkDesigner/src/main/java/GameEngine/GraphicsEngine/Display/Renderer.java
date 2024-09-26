@@ -1,10 +1,7 @@
 package main.java.GameEngine.GraphicsEngine.Display;
 
-import main.java.GameEngine.ECS.Entity;
 import main.java.GameEngine.GraphicsEngine.Model.Mesh;
-import main.java.GameEngine.GraphicsEngine.Model.Model;
 import main.java.GameEngine.GraphicsEngine.Shaders.StaticShader;
-import main.java.GameEngine.Utils.Maths.Matricks;
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
@@ -29,6 +26,7 @@ public class Renderer
         GL11.glClearColor(1, 1, 1, 1);
     }
 
+    /*
     public void renderEntities(List<Entity> entities)
     {
         this.shader.start();
@@ -43,7 +41,6 @@ public class Renderer
 
     public void renderEntity(Entity entity)
     {
-        /*
         Model model = entity.getModel();
         Matrix4f transformationMatrix = Matricks.createTransformationMatrix(entity.getPosition(), entity.getRotation(), entity.getScale());
 
@@ -54,8 +51,8 @@ public class Renderer
         {
             renderMesh(mesh);
         }
-         */
     }
+    */
 
     private void renderMesh(Mesh mesh)
     {

@@ -1,15 +1,12 @@
 package main.java.GameEngine;
 
-import main.java.GameEngine.ECS.Entity;
+import main.java.GameEngine.ECS.ECSManager;
 import main.java.GameEngine.GraphicsEngine.Camera;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Scene
 {
     protected Camera camera = new Camera();
-    protected List<Entity> entities = new ArrayList<>();
+    protected ECSManager ecs = new ECSManager();
 
     public Scene(){}
 
@@ -18,28 +15,11 @@ public class Scene
     protected void renderScene(Camera camera)
     {
         camera.prepare();
-        camera.renderEntities(this.entities);
-    }
-
-    public void addEntity(Entity entity)
-    {
-        entities.add(entity);
-    }
-
-    public List<Entity> getEntities()
-    {
-        return entities;
+        //camera.renderEntities(this.entities);
     }
 
     public void cleanUp()
     {
-        for (Entity entity : entities)
-        {
-            /*
-            entity.cleanUp();
-             */
-        }
-
         camera.cleanUp();
     }
 }

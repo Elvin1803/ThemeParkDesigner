@@ -11,7 +11,6 @@ public class Main
 {
     public static void main(String[] args)
     {
-        /*
         // Change to LEVEL.SEVERE for release
         MyLogging.getLogger().setLevel(Level.INFO);
         MyLogging.log(Level.INFO, "PWD: " + System.getProperty("user.dir"));
@@ -20,6 +19,5 @@ public class Main
         game.run();
 
         MyLogging.log(Level.INFO, "Exited properly.");
-        */
     }
 }

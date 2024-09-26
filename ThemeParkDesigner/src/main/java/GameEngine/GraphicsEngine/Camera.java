@@ -1,6 +1,5 @@
 package main.java.GameEngine.GraphicsEngine;
 
-import main.java.GameEngine.ECS.Entity;
 import main.java.GameEngine.GraphicsEngine.Display.DisplayManager;
 import main.java.GameEngine.GraphicsEngine.Display.Renderer;
 import main.java.GameEngine.Utils.Maths.Matricks;
@@ -78,10 +77,12 @@ public class Camera
         this.renderer.prepare();
     }
 
+    /*
     public void renderEntities(List<Entity> entities)
     {
         renderer.renderEntities(entities);
     }
+     */
 
     public void cleanUp()
     {

@@ -5,18 +5,17 @@ import java.util.Vector;
 
 public class SparseSet<T>
 {
+    private final Class<T> typeClass;
     // Will contain the components.
-    private Vector<T> dense;
+    private Vector<T> dense = new Vector<>(100);
     // Will contain the index of the component in the dense vector. Use a paging system.
-    private Vector<Vector<Integer>> sparse_pages;
-    private Vector<Integer> denseToEntity;
+    private Vector<Vector<Integer>> sparse_pages = new Vector<>(100);
+    private Vector<Integer> denseToEntity = new Vector<>(100);
     private final int PAGE_SIZE = 1000;
 
-    public SparseSet()
+    public SparseSet(Class<T> typeClass)
     {
-        dense = new Vector<>(100);
-        denseToEntity = new Vector<>(100);
-        sparse_pages = new Vector<>();
+        this.typeClass = typeClass;
     }
 
     /*
@@ -108,5 +107,10 @@ public class SparseSet<T>
 
         int denseIndex = sparse_pages.get(page_nb).get(sparseIndex);
         return denseIndex == -1 ? null : dense.get(denseIndex);
+    }
+
+    public Class<T> getTypeClass()
+    {
+        return typeClass;
     }
 }

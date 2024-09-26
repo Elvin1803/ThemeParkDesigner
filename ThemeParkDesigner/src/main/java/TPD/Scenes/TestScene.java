@@ -1,17 +1,6 @@
 package main.java.TPD.Scenes;
 
-import main.java.GameEngine.ECS.Entity;
-import main.java.GameEngine.GraphicsEngine.Material.Material;
-import main.java.GameEngine.GraphicsEngine.Material.Texture;
-import main.java.GameEngine.GraphicsEngine.Model.Mesh;
-import main.java.GameEngine.GraphicsEngine.Model.Model;
-import main.java.GameEngine.GraphicsEngine.Model.Vertex;
 import main.java.GameEngine.Scene;
-import org.joml.Vector2f;
-import org.joml.Vector3f;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TestScene extends Scene
 {
