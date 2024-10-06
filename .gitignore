@@ -1,9 +1,10 @@
 .vs/*
-'Theme Park Designer'/.vs/*
+Theme Park Designer/.vs/*
 
 *.sln
 *.vcxproj
 *.vcxproj.user
+*.vcxproj.filters
 
 bin/*
 bin-obj/*
