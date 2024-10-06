@@ -1,5 +1,9 @@
 .vs/*
+'Theme Park Designer'/.vs/*
 
 *.sln
 *.vcxproj
 *.vcxproj.user
+
+bin/*
+bin-obj/*
