@@ -11,18 +11,23 @@ project "Theme Park Designer"
     language "C++"
     cppdialect "C++17"
 
+    location("%{prj.name}/")
+
     targetdir("bin/%{cfg.buildcfg}/%{prj.name}")
     objdir("bin-obj/%{cfg.buildcfg}/%{prj.name}")
 
     files
     {
         "%{prj.name}/src/**.cpp",
-        "%{prj.name}/src/**.h"
+        "%{prj.name}/src/**.h",
+
+        "%{prj.name}/libs/glad/src/glad.c"
     }
 
     includedirs
     {
         "%{prj.name}/src/",
+        
         "%{prj.name}/libs/glad/include/",
         "%{prj.name}/libs/GLFW/include/"
     }
