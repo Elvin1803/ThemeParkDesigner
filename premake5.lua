@@ -34,6 +34,7 @@ project "Theme Park Designer"
 
     links
     {
+        "opengl32",
         "glfw3_mt"
     }
 

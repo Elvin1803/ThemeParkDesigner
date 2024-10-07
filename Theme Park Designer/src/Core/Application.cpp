@@ -1,11 +1,33 @@
 #include "Application.h"
 
+#include <memory>
+
 namespace TPD
 {
     Application::Application(const std::string& title)
-        : m_title(title)
     {
-        m_window = std::make_unique<Window>(title, 1280, 720);
+        auto config = LoadConfig();
+
+        m_window = std::make_unique<Window>(title, config->width, config->height);
+
+        // For testing purpose
+        float vertices[] = {
+            -0.5f, -0.5f, 0.0f,
+            0.5f,  -0.5f, 0.0f,
+            0.0f,  0.5f,  0.0f
+        };
+
+        uint32_t indices[] = {
+            0, 1, 2
+        };
+        
+        vao = std::make_unique<VertexArray>();
+
+        vao->AddVertexBuffer(vertices, sizeof(vertices));
+        vao->AddIndexBuffer(indices, sizeof(indices));
+
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+        glEnableVertexAttribArray(0);
     }
     
     Application::~Application()
@@ -17,7 +39,29 @@ namespace TPD
     {
         while (!m_window->IsClosed())
         {
+            glClearColor(1, 1, 1, 1);
+            glClear(GL_COLOR_BUFFER_BIT);
+
+            // render here
+            glBindVertexArray(vao->GetVAOid());
+            glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
+            glBindVertexArray(0);
+
             m_window->SwapBuffer();
         }
+    }
+    
+    std::unique_ptr<appConfig> Application::LoadConfig()
+    {
+        /* TODO: Load config from a file */
+
+        // Generate a default config
+        auto config = std::make_unique<appConfig>();
+
+        config->mode = windowMode::WINDOWED;
+        config->height = 720;
+        config->width = 1280;
+
+        return config;
     }
 }
