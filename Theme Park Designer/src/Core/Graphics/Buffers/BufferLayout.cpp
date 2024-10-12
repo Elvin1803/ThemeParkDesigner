@@ -12,6 +12,7 @@ namespace TPD::Graphics
 
             offset += element.count * GetShaderDataTypeSize(element.type);
         }
+        m_stride = offset;
 
         m_layout = std::move(layout);
     }

@@ -13,14 +13,29 @@ namespace TPD::Graphics::API
         return res;
     }
     
-    std::shared_ptr<VertexBuffer> CreateVertexBuffer(const float* vertices, uint32_t size)
+    std::shared_ptr<BufferLayout> CreateBufferLayout(std::vector<BufferLayoutElement> layout)
     {
-        return std::make_shared<VertexBuffer>(vertices, size);
+        return std::make_shared<BufferLayout>(layout);
     }
 
-    std::shared_ptr<IndexBuffer> CreateIndexBuffer(uint32_t* indices, uint32_t count)
+    std::unique_ptr<VertexBuffer> CreateVertexBuffer(const float* vertices, uint32_t size)
     {
-        return std::make_shared<IndexBuffer>(indices, count);
+        return std::make_unique<VertexBuffer>(vertices, size);
+    }
+
+    std::unique_ptr<IndexBuffer> CreateIndexBuffer(const uint32_t* indices, uint32_t count)
+    {
+        return std::make_unique<IndexBuffer>(indices, count);
+    }
+
+    std::unique_ptr<VertexArray> CreateVertexArray(std::shared_ptr<BufferLayout> layout, std::unique_ptr<IndexBuffer> indexBuffer, std::unique_ptr<VertexBuffer> vertexBuffer)
+    {
+        auto res = std::make_unique<VertexArray>();
+        res->SetLayout(layout);
+        res->AddVertexBuffer(std::move(vertexBuffer));
+        res->AddIndexBuffer(std::move(indexBuffer));
+
+        return res;
     }
 
 }

@@ -31,10 +31,11 @@ namespace TPD::Graphics
 
     void VertexArray::SetLayout(std::shared_ptr<BufferLayout> layout)
     {
+        glBindVertexArray(m_VAOid);
         m_layout = layout;
     }
 
-    void VertexArray::AddVertexBuffer(std::shared_ptr<VertexBuffer>& vbo)
+    void VertexArray::AddVertexBuffer(std::unique_ptr<VertexBuffer> vbo)
     {
         if (m_layout == nullptr)
         {
@@ -81,12 +82,18 @@ namespace TPD::Graphics
             attribIndex++;
         }
 
-        m_vbo = vbo;
+        m_vbo = std::move(vbo);
     }
 
-    void VertexArray::AddIndexBuffer(std::shared_ptr<IndexBuffer>& ibo)
+    void VertexArray::AddIndexBuffer(std::unique_ptr<IndexBuffer> ibo)
     {
         glBindVertexArray(m_VAOid);
-        m_ibo = ibo;
+        ibo->Bind();
+        m_ibo = std::move(ibo);
+    }
+
+    void VertexArray::Bind() const
+    {
+        glBindVertexArray(m_VAOid);
     }
 }

@@ -19,8 +19,10 @@ namespace TPD::Graphics
 
         void SetLayout(std::shared_ptr<BufferLayout> layout);
 
-        void AddVertexBuffer(std::shared_ptr<VertexBuffer>& vbo);
-        void AddIndexBuffer(std::shared_ptr<IndexBuffer>& ibo);
+        void AddVertexBuffer(std::unique_ptr<VertexBuffer> vbo);
+        void AddIndexBuffer(std::unique_ptr<IndexBuffer> ibo);
+
+        void Bind() const;
 
         inline uint32_t GetVAOid() const { return m_VAOid; };
 
@@ -28,8 +30,8 @@ namespace TPD::Graphics
         uint32_t m_VAOid;
         std::shared_ptr<BufferLayout> m_layout = nullptr;
 
-        std::shared_ptr<VertexBuffer> m_vbo = nullptr;
-        std::shared_ptr<IndexBuffer> m_ibo = nullptr;
+        std::unique_ptr<VertexBuffer> m_vbo = nullptr;
+        std::unique_ptr<IndexBuffer> m_ibo = nullptr;
     };
 
 }

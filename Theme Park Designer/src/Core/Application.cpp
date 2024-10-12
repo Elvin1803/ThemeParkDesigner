@@ -1,6 +1,7 @@
 #include "Application.h"
 
 #include <memory>
+#include <iostream>
 
 namespace TPD
 {
@@ -20,6 +21,15 @@ namespace TPD
         uint32_t indices[] = {
             0, 1, 2
         };
+
+        auto layout = Graphics::API::CreateBufferLayout({
+                Graphics::API::CreateBufferLayoutElement(0, 3, TPD::Graphics::ShaderDataType::Float)
+            });
+
+        auto vbo = Graphics::API::CreateVertexBuffer(vertices, sizeof(vertices));
+        auto ibo = Graphics::API::CreateIndexBuffer(indices, sizeof(indices));
+
+        vao = Graphics::API::CreateVertexArray(layout, std::move(ibo), std::move(vbo));
     }
     
     Application::~Application()
@@ -35,6 +45,8 @@ namespace TPD
             glClear(GL_COLOR_BUFFER_BIT);
 
             // render here
+            vao->Bind();
+            glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
 
             m_window->SwapBuffer();
         }

@@ -1,13 +1,8 @@
 #include "Buffer.h"
+#include <iostream>
 
 namespace TPD::Graphics
 {
-
-    Buffer::~Buffer()
-    {
-        delete[] m_data;
-    }
-
 
     // Vertex Buffer
     VertexBuffer::VertexBuffer(const float* vertices, uint32_t size) : Buffer(vertices, size)
@@ -20,7 +15,6 @@ namespace TPD::Graphics
     VertexBuffer::~VertexBuffer()
     {
         glDeleteBuffers(1, &m_bufferId);
-        Buffer::~Buffer();
     }
 
     void VertexBuffer::Bind() const
@@ -44,7 +38,6 @@ namespace TPD::Graphics
     IndexBuffer::~IndexBuffer()
     {
         glDeleteBuffers(1, &m_bufferId);
-        Buffer::~Buffer();
     }
 
     void IndexBuffer::Bind() const

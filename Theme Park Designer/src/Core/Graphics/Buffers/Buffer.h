@@ -20,8 +20,6 @@ namespace TPD::Graphics
         virtual void Bind() const = 0;
         virtual void Unbind() const = 0;
 
-        ~Buffer();
-
     protected:
         const void* m_data = nullptr;
         uint32_t m_size;

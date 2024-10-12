@@ -4,6 +4,7 @@
 #include <memory>
 
 #include "Core/Window.h"
+#include "Graphics/GraphicsAPI.h"
 
 namespace TPD
 {
@@ -35,6 +36,7 @@ namespace TPD
         std::unique_ptr<Window> m_window;
 
         // For testing purposes:
+        std::unique_ptr<Graphics::VertexArray> vao;
     };
 
 }
