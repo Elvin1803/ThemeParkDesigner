@@ -4,12 +4,11 @@
 
 namespace TPD
 {
+    static bool isGLFWInitialized = false;
 
     Window::Window(const std::string& title, uint32_t width, uint32_t height)
         : m_title(title), m_width(width), m_height(height)
     {
-        static bool isGLFWInitialized = false;
-
         if (!isGLFWInitialized)
         {
             if (!glfwInit())

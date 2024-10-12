@@ -1,0 +1,59 @@
+#include "Buffer.h"
+
+namespace TPD::Graphics
+{
+
+    Buffer::~Buffer()
+    {
+        delete[] m_data;
+    }
+
+
+    // Vertex Buffer
+    VertexBuffer::VertexBuffer(const float* vertices, uint32_t size) : Buffer(vertices, size)
+    {
+        glCreateBuffers(1, &m_bufferId);
+        glBindBuffer(GL_ARRAY_BUFFER, m_bufferId);
+        glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
+    }
+
+    VertexBuffer::~VertexBuffer()
+    {
+        glDeleteBuffers(1, &m_bufferId);
+        Buffer::~Buffer();
+    }
+
+    void VertexBuffer::Bind() const
+    {
+        glBindBuffer(GL_ARRAY_BUFFER, m_bufferId);
+    }
+
+    void VertexBuffer::Unbind() const
+    {
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+    }
+
+    // Index Buffer
+    IndexBuffer::IndexBuffer(const uint32_t* indices, uint32_t count) : Buffer(indices, count)
+    {
+        glCreateBuffers(1, &m_bufferId);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_bufferId);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, count, indices, GL_STATIC_DRAW);
+    }
+
+    IndexBuffer::~IndexBuffer()
+    {
+        glDeleteBuffers(1, &m_bufferId);
+        Buffer::~Buffer();
+    }
+
+    void IndexBuffer::Bind() const
+    {
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_bufferId);
+    }
+
+    void IndexBuffer::Unbind() const
+    {
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    }
+}

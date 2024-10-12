@@ -20,14 +20,6 @@ namespace TPD
         uint32_t indices[] = {
             0, 1, 2
         };
-        
-        vao = std::make_unique<VertexArray>();
-
-        vao->AddVertexBuffer(vertices, sizeof(vertices));
-        vao->AddIndexBuffer(indices, sizeof(indices));
-
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
-        glEnableVertexAttribArray(0);
     }
     
     Application::~Application()
@@ -43,9 +35,6 @@ namespace TPD
             glClear(GL_COLOR_BUFFER_BIT);
 
             // render here
-            glBindVertexArray(vao->GetVAOid());
-            glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
-            glBindVertexArray(0);
 
             m_window->SwapBuffer();
         }
