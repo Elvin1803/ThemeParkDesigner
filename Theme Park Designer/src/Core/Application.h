@@ -5,6 +5,7 @@
 
 #include "Core/Window.h"
 #include "Graphics/GraphicsAPI.h"
+#include "Graphics/Shaders/Shader.h"
 
 namespace TPD
 {
@@ -37,6 +38,7 @@ namespace TPD
 
         // For testing purposes:
         std::unique_ptr<Graphics::VertexArray> vao;
+        std::unique_ptr<Graphics::Shader> shader;
     };
 
 }

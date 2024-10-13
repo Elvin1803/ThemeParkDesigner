@@ -13,17 +13,20 @@ namespace TPD
 
         // For testing purpose
         float vertices[] = {
-            -0.5f, -0.5f, 0.0f,
-            0.5f,  -0.5f, 0.0f,
-            0.0f,  0.5f,  0.0f
+            -0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f, 1.0f,
+            0.5f,  -0.5f, 0.0f,  0.0f, 1.0f, 0.0f, 1.0f,
+            0.0f,  0.5f,  0.0f,  0.0f, 0.0f, 1.0f, 1.0f,
         };
 
         uint32_t indices[] = {
             0, 1, 2
         };
 
+        shader = std::make_unique<Graphics::Shader>("Basic", "Basic");
+
         auto layout = Graphics::API::CreateBufferLayout({
-                Graphics::API::CreateBufferLayoutElement(0, 3, TPD::Graphics::ShaderDataType::Float)
+                Graphics::API::CreateBufferLayoutElement(0, 3, TPD::Graphics::ShaderDataType::Float),
+                Graphics::API::CreateBufferLayoutElement(1, 4, TPD::Graphics::ShaderDataType::Float)
             });
 
         auto vbo = Graphics::API::CreateVertexBuffer(vertices, sizeof(vertices));
@@ -45,6 +48,7 @@ namespace TPD
             glClear(GL_COLOR_BUFFER_BIT);
 
             // render here
+            shader->UseShader();
             vao->Bind();
             glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
 
