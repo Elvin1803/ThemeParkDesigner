@@ -13,7 +13,7 @@ namespace TPD::Graphics
     {
     public:
         Buffer(const void* data, uint32_t size)
-            : m_data(data), m_size(size), m_bufferId(0)
+            : m_bufferId(0)
         {
         }
 
@@ -21,9 +21,6 @@ namespace TPD::Graphics
         virtual void Unbind() const = 0;
 
     protected:
-        const void* m_data = nullptr;
-        uint32_t m_size;
-
         uint32_t m_bufferId;
     };
 
