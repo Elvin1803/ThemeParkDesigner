@@ -21,15 +21,17 @@ project "Theme Park Designer"
         "%{prj.name}/src/**.cpp",
         "%{prj.name}/src/**.h",
 
-        "%{prj.name}/libs/glad/src/glad.c"
+        "%{prj.name}/libs/glad/src/glad.c",
+        "%{prj.name}/libs/glm/glm/**.hpp"
     }
 
     includedirs
     {
         "%{prj.name}/src/",
-        
+
         "%{prj.name}/libs/glad/include/",
-        "%{prj.name}/libs/GLFW/include/"
+        "%{prj.name}/libs/GLFW/include/",
+        "%{prj.name}/libs/glm"
     }
 
     links

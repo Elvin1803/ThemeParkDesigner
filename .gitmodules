@@ -1,0 +1,3 @@
+[submodule "Theme Park Designer/libs/glm"]
+	path = Theme Park Designer/libs/glm
+	url = https://github.com/g-truc/glm

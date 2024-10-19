@@ -5,6 +5,7 @@
 
 namespace TPD
 {
+
     Application::Application(const std::string& title)
     {
         auto config = LoadConfig();
@@ -34,12 +35,12 @@ namespace TPD
 
         vao = Graphics::API::CreateVertexArray(layout, std::move(ibo), std::move(vbo));
     }
-    
+
     Application::~Application()
     {
         glfwTerminate();
     }
-    
+
     void Application::Run()
     {
         while (!m_window->IsClosed())
@@ -55,7 +56,7 @@ namespace TPD
             m_window->SwapBuffer();
         }
     }
-    
+
     std::unique_ptr<appConfig> Application::LoadConfig()
     {
         /* TODO: Load config from a file */
