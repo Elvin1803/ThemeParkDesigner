@@ -3,21 +3,31 @@
 
 #include <glm/glm.hpp>
 
-namespace TPD
+namespace TPD::Graphics
 {
+
+    struct viewportRect
+    {
+    public:
+        float x;
+        float y;
+        float width;
+        float height;
+    };
 
     class Camera
     {
     public:
-        Camera(const glm::mat4& projection)
-            : m_projection(projection)
-        {
-        }
-        virtual ~Camera() = 0;
+        Camera(viewportRect& r)
+            : m_viewportRect(r)
+        {};
+        virtual ~Camera() = default;
 
         inline glm::mat4 getProjection() const { return m_projection; }
+        inline float GetAspectRatio() const { return m_viewportRect.width / m_viewportRect.height; }
 
-    private:
+    protected:
+        viewportRect m_viewportRect;
         glm::mat4 m_projection = glm::mat4(1.0f);
     };
 

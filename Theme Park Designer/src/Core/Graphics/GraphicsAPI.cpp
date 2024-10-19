@@ -2,6 +2,11 @@
 
 namespace TPD::Graphics::API
 {
+    std::unique_ptr<PerspectiveCamera> CreatePerspectiveCamera(viewportRect r)
+    {
+        return std::make_unique<PerspectiveCamera>(r);
+    }
+    
     BufferLayoutElement CreateBufferLayoutElement(uint32_t index, uint32_t count, ShaderDataType type, bool normalized)
     {
         BufferLayoutElement res;

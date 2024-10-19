@@ -13,6 +13,8 @@ namespace TPD
         m_window = std::make_unique<Window>(title, config->width, config->height);
 
         // For testing purpose
+        camera = Graphics::API::CreatePerspectiveCamera({0, 0, 1280, 720});
+
         float vertices[] = {
             -0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f, 1.0f,
             0.5f,  -0.5f, 0.0f,  0.0f, 1.0f, 0.0f, 1.0f,

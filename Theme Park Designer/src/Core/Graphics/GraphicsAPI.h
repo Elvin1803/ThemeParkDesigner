@@ -3,12 +3,26 @@
 
 #include <memory>
 
+#include "Camera/PerspectiveCamera.h"
+
 #include "Buffers/Buffer.h"
 #include "Buffers/BufferLayout.h"
 #include "Buffers/VertexArray.h"
 
 namespace TPD::Graphics::API
 {
+    /*
+     * Creates a PerspectiveCamera.
+     *
+     * @param index: index of the attribute in the shader.
+     * @param count: number of components in the attribute.
+     * @param type: shader data type of the attribute.
+     * @param normalized: if the attribute is normalized.
+     *
+     * @return created PerspectiveCamera.
+     */
+    std::unique_ptr<PerspectiveCamera> CreatePerspectiveCamera(viewportRect r);
+    
     /*
      * Creates a BufferLayoutElement. Offset is calculated when layout
      * is set in a VAO.

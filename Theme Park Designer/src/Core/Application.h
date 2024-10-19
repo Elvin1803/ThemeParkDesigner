@@ -6,6 +6,7 @@
 #include "Core/Window.h"
 #include "Graphics/GraphicsAPI.h"
 #include "Graphics/Shaders/Shader.h"
+#include "Graphics/Camera/PerspectiveCamera.h"
 
 namespace TPD
 {
@@ -37,6 +38,7 @@ namespace TPD
         std::unique_ptr<Window> m_window;
 
         // For testing purposes:
+        std::unique_ptr<Graphics::PerspectiveCamera> camera;
         std::unique_ptr<Graphics::VertexArray> vao;
         std::unique_ptr<Graphics::Shader> shader;
     };
