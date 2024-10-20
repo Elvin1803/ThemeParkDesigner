@@ -17,7 +17,7 @@ namespace TPD
         auto shader = Graphics::API::CreateShader("Basic", "Basic");
         renderer->BindShader(shader);
 
-        camera = Graphics::API::CreatePerspectiveCamera({0, 0, 1280, 720});
+        camera = Graphics::API::CreatePerspectiveCamera({0, 0, m_window->GetWidth(), m_window->GetHeight()});
 
         float vertices[] = {
             -0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f, 1.0f,

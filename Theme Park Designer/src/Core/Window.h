@@ -15,6 +15,9 @@ namespace TPD
         Window(const std::string& title, uint32_t width, uint32_t height);
         ~Window();
 
+        inline uint32_t GetWidth() const { return m_width; }
+        inline uint32_t GetHeight() const { return m_height; }
+
         void SwapBuffer();
         bool IsClosed();
 

@@ -9,10 +9,10 @@ namespace TPD::Graphics
     struct viewportRect
     {
     public:
-        float x;
-        float y;
-        float width;
-        float height;
+        uint32_t x;
+        uint32_t y;
+        uint32_t width;
+        uint32_t height;
     };
 
     class Camera

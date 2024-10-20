@@ -11,6 +11,7 @@ namespace TPD::Graphics
     void Renderer::Draw(const Graphics::Camera* camera, const std::unique_ptr<Graphics::VertexArray>& vao)
     {
         glViewport(camera->GetViewportRect().x, camera->GetViewportRect().y, camera->GetViewportRect().width, camera->GetViewportRect().height);
+
         vao->Bind();
         m_shader->UseShader();
         // Give MVP to shader
