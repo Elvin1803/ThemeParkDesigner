@@ -2,11 +2,21 @@
 
 namespace TPD::Graphics::API
 {
+    std::unique_ptr<Renderer> CreateRenderer()
+    {
+        return std::make_unique<Renderer>();
+    }
+
+    std::shared_ptr<Shader> CreateShader(const std::string& vertexScr, const std::string& fragmentSrc)
+    {
+        return std::make_shared<Graphics::Shader>(vertexScr, fragmentSrc);
+    }
+
     std::unique_ptr<PerspectiveCamera> CreatePerspectiveCamera(viewportRect r)
     {
         return std::make_unique<PerspectiveCamera>(r);
     }
-    
+
     BufferLayoutElement CreateBufferLayoutElement(uint32_t index, uint32_t count, ShaderDataType type, bool normalized)
     {
         BufferLayoutElement res;
@@ -17,7 +27,7 @@ namespace TPD::Graphics::API
 
         return res;
     }
-    
+
     std::shared_ptr<BufferLayout> CreateBufferLayout(std::vector<BufferLayoutElement> layout)
     {
         return std::make_shared<BufferLayout>(layout);

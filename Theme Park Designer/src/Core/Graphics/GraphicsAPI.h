@@ -3,21 +3,36 @@
 
 #include <memory>
 
-#include "Camera/PerspectiveCamera.h"
-
 #include "Buffers/Buffer.h"
 #include "Buffers/BufferLayout.h"
 #include "Buffers/VertexArray.h"
+#include "Camera/PerspectiveCamera.h"
+#include "Shaders/Shader.h"
+#include "Renderer.h"
 
 namespace TPD::Graphics::API
 {
     /*
+     * Creates a renderer.
+     *
+     * @return created Renderer.
+     */
+    std::unique_ptr<Renderer> CreateRenderer();
+
+    /*
+     * Creates a Shader.
+     *
+     * @param vertexScr: Specifies which vertexShader code to use.
+     * @param fragmentSrc: Specifies which fragmentShader code to use.
+     *
+     * @return created Shader.
+     */
+    std::shared_ptr<Shader> CreateShader(const std::string& vertexScr, const std::string& fragmentSrc);
+
+    /*
      * Creates a PerspectiveCamera.
      *
-     * @param index: index of the attribute in the shader.
-     * @param count: number of components in the attribute.
-     * @param type: shader data type of the attribute.
-     * @param normalized: if the attribute is normalized.
+     * @param r: Specifies where on the screen the camera will be rendered.
      *
      * @return created PerspectiveCamera.
      */

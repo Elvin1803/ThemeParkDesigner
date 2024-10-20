@@ -13,6 +13,10 @@ namespace TPD
         m_window = std::make_unique<Window>(title, config->width, config->height);
 
         // For testing purpose
+        renderer = Graphics::API::CreateRenderer();
+        auto shader = Graphics::API::CreateShader("Basic", "Basic");
+        renderer->BindShader(shader);
+
         camera = Graphics::API::CreatePerspectiveCamera({0, 0, 1280, 720});
 
         float vertices[] = {
@@ -24,8 +28,6 @@ namespace TPD
         uint32_t indices[] = {
             0, 1, 2
         };
-
-        shader = std::make_unique<Graphics::Shader>("Basic", "Basic");
 
         auto layout = Graphics::API::CreateBufferLayout({
                 Graphics::API::CreateBufferLayoutElement(0, 3, TPD::Graphics::ShaderDataType::Float),
@@ -51,9 +53,10 @@ namespace TPD
             glClear(GL_COLOR_BUFFER_BIT);
 
             // render here
-            shader->UseShader();
-            vao->Bind();
-            glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
+            //shader->UseShader();
+            //vao->Bind();
+            //glDrawElements(GL_TRIANGLES, vao->GetIndicesCount(), GL_UNSIGNED_INT, nullptr);
+            renderer->Draw(camera.get(), vao);
 
             m_window->SwapBuffer();
         }

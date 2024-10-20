@@ -42,6 +42,11 @@ namespace TPD::Graphics
 
         void Bind() const;
         void Unbind() const;
+
+        inline uint32_t GetCount() const { return m_count; }
+
+    private:
+        uint32_t m_count;
     };
 
 }

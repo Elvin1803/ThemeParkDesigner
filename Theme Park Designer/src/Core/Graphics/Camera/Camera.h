@@ -24,6 +24,7 @@ namespace TPD::Graphics
         virtual ~Camera() = default;
 
         inline glm::mat4 getProjection() const { return m_projection; }
+        inline viewportRect GetViewportRect() const { return m_viewportRect; }
         inline float GetAspectRatio() const { return m_viewportRect.width / m_viewportRect.height; }
 
     protected:

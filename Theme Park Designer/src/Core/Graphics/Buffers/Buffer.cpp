@@ -5,7 +5,8 @@ namespace TPD::Graphics
 {
 
     // Vertex Buffer
-    VertexBuffer::VertexBuffer(const float* vertices, uint32_t size) : Buffer(vertices, size)
+    VertexBuffer::VertexBuffer(const float* vertices, uint32_t size) 
+        : Buffer(vertices, size)
     {
         glCreateBuffers(1, &m_bufferId);
         glBindBuffer(GL_ARRAY_BUFFER, m_bufferId);
@@ -28,7 +29,8 @@ namespace TPD::Graphics
     }
 
     // Index Buffer
-    IndexBuffer::IndexBuffer(const uint32_t* indices, uint32_t count) : Buffer(indices, count)
+    IndexBuffer::IndexBuffer(const uint32_t* indices, uint32_t count) 
+        : Buffer(indices, count), m_count(count)
     {
         glCreateBuffers(1, &m_bufferId);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_bufferId);

@@ -25,6 +25,7 @@ namespace TPD::Graphics
         void Bind() const;
 
         inline uint32_t GetVAOid() const { return m_VAOid; };
+        inline uint32_t GetIndicesCount() const { return m_ibo->GetCount(); }
 
     private:
         uint32_t m_VAOid;
