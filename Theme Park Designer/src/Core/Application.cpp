@@ -30,14 +30,16 @@ namespace TPD
         };
 
         auto layout = Graphics::API::CreateBufferLayout({
-                Graphics::API::CreateBufferLayoutElement(0, 3, TPD::Graphics::ShaderDataType::Float),
-                Graphics::API::CreateBufferLayoutElement(1, 4, TPD::Graphics::ShaderDataType::Float)
+                Graphics::API::CreateBufferLayoutElement(3, TPD::Graphics::ShaderDataType::Float), // position
+                Graphics::API::CreateBufferLayoutElement(4, TPD::Graphics::ShaderDataType::Float)  // color
             });
 
         auto vbo = Graphics::API::CreateVertexBuffer(vertices, sizeof(vertices));
         auto ibo = Graphics::API::CreateIndexBuffer(indices, sizeof(indices));
 
-        vao = Graphics::API::CreateVertexArray(layout, std::move(ibo), std::move(vbo));
+        auto vao = Graphics::API::CreateVertexArray(layout, std::move(ibo), std::move(vbo));
+
+        model = std::make_unique<Graphics::Model>(vao);
     }
 
     Application::~Application()
@@ -56,7 +58,7 @@ namespace TPD
             //shader->UseShader();
             //vao->Bind();
             //glDrawElements(GL_TRIANGLES, vao->GetIndicesCount(), GL_UNSIGNED_INT, nullptr);
-            renderer->Draw(camera.get(), vao);
+            renderer->DrawModel(camera.get(), model);
 
             m_window->SwapBuffer();
         }

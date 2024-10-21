@@ -3,7 +3,7 @@
 
 #include <memory>
 
-#include "Buffers/VertexArray.h"
+#include "Model/Model.h"
 #include "Camera/Camera.h"
 #include "Shaders/Shader.h"
 
@@ -17,7 +17,7 @@ namespace TPD::Graphics
         ~Renderer() = default;
 
         void BindShader(std::shared_ptr<Graphics::Shader> shader);
-        void Draw(const Graphics::Camera* camera, const std::unique_ptr<Graphics::VertexArray>& vao);
+        void DrawModel(const Graphics::Camera* camera, const std::unique_ptr<Graphics::Model>& model);
 
     private:
         std::shared_ptr<Graphics::Shader> m_shader = nullptr;

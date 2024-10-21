@@ -8,14 +8,14 @@ namespace TPD::Graphics
         m_shader = shader;
     }
 
-    void Renderer::Draw(const Graphics::Camera* camera, const std::unique_ptr<Graphics::VertexArray>& vao)
+    void Renderer::DrawModel(const Graphics::Camera* camera, const std::unique_ptr<Graphics::Model>& model)
     {
         glViewport(camera->GetViewportRect().x, camera->GetViewportRect().y, camera->GetViewportRect().width, camera->GetViewportRect().height);
 
-        vao->Bind();
+        model->GetVAO()->Bind();
         m_shader->UseShader();
         // Give MVP to shader
-        glDrawElements(GL_TRIANGLES, vao->GetIndicesCount(), GL_UNSIGNED_INT, nullptr);
+        glDrawElements(GL_TRIANGLES, model->GetVAO()->GetIndicesCount(), GL_UNSIGNED_INT, nullptr);
     }
 
 }

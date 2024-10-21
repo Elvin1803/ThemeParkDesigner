@@ -17,10 +17,9 @@ namespace TPD::Graphics::API
         return std::make_unique<PerspectiveCamera>(r);
     }
 
-    BufferLayoutElement CreateBufferLayoutElement(uint32_t index, uint32_t count, ShaderDataType type, bool normalized)
+    BufferLayoutElement CreateBufferLayoutElement(uint32_t count, ShaderDataType type, bool normalized)
     {
         BufferLayoutElement res;
-        res.index = index;
         res.count = count;
         res.type = type;
         res.normalized = normalized;
@@ -43,7 +42,7 @@ namespace TPD::Graphics::API
         return std::make_unique<IndexBuffer>(indices, count);
     }
 
-    std::unique_ptr<VertexArray> CreateVertexArray(std::shared_ptr<BufferLayout> layout, std::unique_ptr<IndexBuffer> indexBuffer, std::unique_ptr<VertexBuffer> vertexBuffer)
+    std::unique_ptr<VertexArray> CreateVertexArray(std::shared_ptr<BufferLayout>& layout, std::unique_ptr<IndexBuffer>& indexBuffer, std::unique_ptr<VertexBuffer>& vertexBuffer)
     {
         auto res = std::make_unique<VertexArray>();
         res->SetLayout(layout);

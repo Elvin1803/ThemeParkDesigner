@@ -7,6 +7,7 @@
 #include "Graphics/GraphicsAPI.h"
 #include "Graphics/Shaders/Shader.h"
 #include "Graphics/Camera/PerspectiveCamera.h"
+#include "Graphics/Model/Model.h"
 
 namespace TPD
 {
@@ -40,7 +41,7 @@ namespace TPD
         // For testing purposes:
         std::unique_ptr<Graphics::Renderer> renderer;
         std::unique_ptr<Graphics::PerspectiveCamera> camera;
-        std::unique_ptr<Graphics::VertexArray> vao;
+        std::unique_ptr<Graphics::Model> model;
     };
 
 }

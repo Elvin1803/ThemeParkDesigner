@@ -49,7 +49,7 @@ namespace TPD::Graphics::API
      *
      * @return created BufferLayoutElement.
      */
-    BufferLayoutElement CreateBufferLayoutElement(uint32_t index, uint32_t count, ShaderDataType type, bool normalized = false);
+    BufferLayoutElement CreateBufferLayoutElement(uint32_t count, ShaderDataType type, bool normalized = false);
 
     /*
      * Creates a BufferLayout.
@@ -91,9 +91,9 @@ namespace TPD::Graphics::API
      *
      * @return created unique pointer of IndexBuffer.
      */
-    std::unique_ptr<VertexArray> CreateVertexArray(std::shared_ptr<BufferLayout> BufferLayout,
-                                                   std::unique_ptr<IndexBuffer> indexBuffer,
-                                                   std::unique_ptr<VertexBuffer> vertexBuffer);
+    std::unique_ptr<VertexArray> CreateVertexArray(std::shared_ptr<BufferLayout>& BufferLayout,
+                                                   std::unique_ptr<IndexBuffer>& indexBuffer,
+                                                   std::unique_ptr<VertexBuffer>& vertexBuffer);
 
 }
 
