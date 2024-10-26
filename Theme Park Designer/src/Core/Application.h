@@ -4,10 +4,8 @@
 #include <memory>
 
 #include "Core/Window.h"
-#include "Graphics/GraphicsAPI.h"
 #include "Graphics/Shaders/Shader.h"
-#include "Graphics/Camera/PerspectiveCamera.h"
-#include "Graphics/Model/Model.h"
+#include "Scene/Scene.h"
 
 namespace TPD
 {
@@ -37,11 +35,11 @@ namespace TPD
 
     private:
         std::unique_ptr<Window> m_window;
+        // Add a scene manager
 
         // For testing purposes:
         std::shared_ptr<Graphics::Shader> shader;
-        std::unique_ptr<Graphics::PerspectiveCamera> camera;
-        std::unique_ptr<Graphics::Model> model;
+        std::unique_ptr<TPD::Scene> scene;
     };
 
 }

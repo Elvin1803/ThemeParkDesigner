@@ -21,15 +21,16 @@ namespace TPD::ECS::Components
     {
         glm::vec3 position = { 0.0f, 0.0f, 0.0f };
         glm::vec3 rotation = { 0.0f, 0.0f, 0.0f };
-        glm::vec3 scale = { 1.0f, 1.0f, 1.0f };;
+        glm::vec3 scale = { 1.0f, 1.0f, 1.0f };
+
         glm::mat4 modelMatrix = glm::mat4(1.0f);
-        bool isDirty = false;
+        bool isModelDirty = true;
 
         void SetPosition(const glm::vec3& newPosition) {
             if (position != newPosition)
             {
                 position = newPosition;
-                isDirty = true;
+                isModelDirty = true;
             }
         }
 
@@ -37,7 +38,7 @@ namespace TPD::ECS::Components
             if (rotation != newRotation)
             {
                 rotation = newRotation;
-                isDirty = true;
+                isModelDirty = true;
             }
         }
 
@@ -45,9 +46,37 @@ namespace TPD::ECS::Components
             if (scale != newScale)
             {
                 scale = newScale;
-                isDirty = true;
+                isModelDirty = true;
             }
         }
+    };
+
+    struct CameraComponent
+    {
+        enum class projectionMode
+        {
+            PERSPECTIVE,
+            OTHOGRAPHIC
+        };
+        struct viewportRect
+        {
+            uint32_t x;
+            uint32_t y;
+            uint32_t width;
+            uint32_t height;
+        };
+
+        projectionMode projection = projectionMode::PERSPECTIVE;
+        float FOV = 70;
+        float nearPlane = 0.1f;
+        float farPlane = 1000.0f;
+
+        viewportRect m_viewportRect;
+
+        glm::mat4 projectionMatrix = glm::mat4(1.0f);
+        bool isProjectionDirty = true;
+        glm::mat4 viewMatrix = glm::mat4(1.0f);
+        bool isViewDirty = true;
     };
 
     struct MeshComponent

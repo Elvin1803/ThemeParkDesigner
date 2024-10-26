@@ -13,9 +13,8 @@ namespace TPD
         m_window = std::make_unique<Window>(title, config->width, config->height);
 
         // For testing purpose
+        /*
         shader = Graphics::API::CreateShader("Basic", "Basic");
-
-        camera = Graphics::API::CreatePerspectiveCamera({0, 0, m_window->GetWidth(), m_window->GetHeight()});
 
         float vertices[] = {
             -0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f, 1.0f,
@@ -36,8 +35,7 @@ namespace TPD
         auto ibo = Graphics::API::CreateIndexBuffer(indices, sizeof(indices));
 
         auto vao = Graphics::API::CreateVertexArray(layout, std::move(ibo), std::move(vbo));
-
-        model = std::make_unique<Graphics::Model>(vao);
+        */
     }
 
     Application::~Application()
@@ -52,8 +50,11 @@ namespace TPD
             glClearColor(1, 1, 1, 1);
             glClear(GL_COLOR_BUFFER_BIT);
 
+            scene->Update();
+
+            /*
             Graphics::Renderer::BindShader(shader.get());
-            Graphics::Renderer::DrawModel(camera.get(), model.get());
+            */
 
             m_window->SwapBuffer();
         }
