@@ -13,9 +13,7 @@ namespace TPD
         m_window = std::make_unique<Window>(title, config->width, config->height);
 
         // For testing purpose
-        renderer = Graphics::API::CreateRenderer();
-        auto shader = Graphics::API::CreateShader("Basic", "Basic");
-        renderer->BindShader(shader);
+        shader = Graphics::API::CreateShader("Basic", "Basic");
 
         camera = Graphics::API::CreatePerspectiveCamera({0, 0, m_window->GetWidth(), m_window->GetHeight()});
 
@@ -54,7 +52,8 @@ namespace TPD
             glClearColor(1, 1, 1, 1);
             glClear(GL_COLOR_BUFFER_BIT);
 
-            renderer->DrawModel(camera.get(), model);
+            Graphics::Renderer::BindShader(shader.get());
+            Graphics::Renderer::DrawModel(camera.get(), model.get());
 
             m_window->SwapBuffer();
         }

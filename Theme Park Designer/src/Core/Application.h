@@ -39,7 +39,7 @@ namespace TPD
         std::unique_ptr<Window> m_window;
 
         // For testing purposes:
-        std::unique_ptr<Graphics::Renderer> renderer;
+        std::shared_ptr<Graphics::Shader> shader;
         std::unique_ptr<Graphics::PerspectiveCamera> camera;
         std::unique_ptr<Graphics::Model> model;
     };
