@@ -54,10 +54,6 @@ namespace TPD
             glClearColor(1, 1, 1, 1);
             glClear(GL_COLOR_BUFFER_BIT);
 
-            // render here
-            //shader->UseShader();
-            //vao->Bind();
-            //glDrawElements(GL_TRIANGLES, vao->GetIndicesCount(), GL_UNSIGNED_INT, nullptr);
             renderer->DrawModel(camera.get(), model);
 
             m_window->SwapBuffer();

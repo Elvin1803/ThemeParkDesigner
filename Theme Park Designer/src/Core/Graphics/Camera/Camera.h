@@ -25,7 +25,7 @@ namespace TPD::Graphics
 
         inline glm::mat4 getProjection() const { return m_projection; }
         inline viewportRect GetViewportRect() const { return m_viewportRect; }
-        inline float GetAspectRatio() const { return m_viewportRect.width / m_viewportRect.height; }
+        inline float GetAspectRatio() const { return float(m_viewportRect.width) / float(m_viewportRect.height); }
 
     protected:
         viewportRect m_viewportRect;
