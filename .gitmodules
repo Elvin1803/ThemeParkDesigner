@@ -1,3 +1,6 @@
 [submodule "Theme Park Designer/libs/glm"]
 	path = Theme Park Designer/libs/glm
 	url = https://github.com/g-truc/glm
+[submodule "Theme Park Designer/libs/entt"]
+	path = Theme Park Designer/libs/entt
+	url = https://github.com/skypjack/entt
