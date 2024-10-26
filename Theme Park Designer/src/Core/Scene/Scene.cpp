@@ -11,8 +11,4 @@ namespace TPD
     {
     }
 
-    void Scene::Update()
-    {
-    }
-
 }

@@ -3,6 +3,9 @@
 #include <memory>
 #include <iostream>
 
+#include "Core/Scene/SceneManager.h"
+#include "TPD/Scenes/TestScene.h"
+
 namespace TPD
 {
 
@@ -11,6 +14,8 @@ namespace TPD
         auto config = LoadConfig();
 
         m_window = std::make_unique<Window>(title, config->width, config->height);
+
+        TPD::SceneManager::ChangeScene(std::make_unique<TPD::TestScene>());
 
         // For testing purpose
         /*
@@ -50,7 +55,7 @@ namespace TPD
             glClearColor(1, 1, 1, 1);
             glClear(GL_COLOR_BUFFER_BIT);
 
-            scene->Update();
+            TPD::SceneManager::GetScene()->Update();
 
             /*
             Graphics::Renderer::BindShader(shader.get());

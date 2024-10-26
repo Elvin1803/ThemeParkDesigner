@@ -3,8 +3,6 @@
 
 #include <memory>
 
-#include "Model/Model.h"
-#include "Camera/Camera.h"
 #include "Shaders/Shader.h"
 
 namespace TPD::Graphics
@@ -14,7 +12,6 @@ namespace TPD::Graphics
     {
     public:
         static void BindShader(const Graphics::Shader* shader);
-        static void DrawModel(const Graphics::Camera* camera, const Graphics::Model* model);
     };
 
 }

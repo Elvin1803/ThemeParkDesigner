@@ -12,11 +12,6 @@ namespace TPD::Graphics::API
         return std::make_shared<Graphics::Shader>(vertexScr, fragmentSrc);
     }
 
-    std::unique_ptr<PerspectiveCamera> CreatePerspectiveCamera(viewportRect r)
-    {
-        return std::make_unique<PerspectiveCamera>(r);
-    }
-
     BufferLayoutElement CreateBufferLayoutElement(uint32_t count, ShaderDataType type, bool normalized)
     {
         BufferLayoutElement res;

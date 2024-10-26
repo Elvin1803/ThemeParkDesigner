@@ -6,7 +6,6 @@
 #include "Buffers/Buffer.h"
 #include "Buffers/BufferLayout.h"
 #include "Buffers/VertexArray.h"
-#include "Camera/PerspectiveCamera.h"
 #include "Shaders/Shader.h"
 #include "Renderer.h"
 
@@ -28,15 +27,6 @@ namespace TPD::Graphics::API
      * @return created Shader.
      */
     std::shared_ptr<Shader> CreateShader(const std::string& vertexScr, const std::string& fragmentSrc);
-
-    /*
-     * Creates a PerspectiveCamera.
-     *
-     * @param r: Specifies where on the screen the camera will be rendered.
-     *
-     * @return created PerspectiveCamera.
-     */
-    std::unique_ptr<PerspectiveCamera> CreatePerspectiveCamera(viewportRect r);
     
     /*
      * Creates a BufferLayoutElement. Offset is calculated when layout

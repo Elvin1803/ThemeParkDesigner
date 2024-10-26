@@ -4,8 +4,6 @@
 #include <memory>
 
 #include "Core/Window.h"
-#include "Graphics/Shaders/Shader.h"
-#include "Scene/Scene.h"
 
 namespace TPD
 {
@@ -35,11 +33,6 @@ namespace TPD
 
     private:
         std::unique_ptr<Window> m_window;
-        // Add a scene manager
-
-        // For testing purposes:
-        std::shared_ptr<Graphics::Shader> shader;
-        std::unique_ptr<TPD::Scene> scene;
     };
 
 }

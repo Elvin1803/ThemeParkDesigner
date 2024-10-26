@@ -12,7 +12,8 @@ namespace TPD
         Scene();
         ~Scene();
 
-        void Update();
+        virtual void Init() = 0;
+        virtual void Update() = 0;
 
     private:
         entt::registry m_registry;
