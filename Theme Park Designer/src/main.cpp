@@ -4,9 +4,8 @@
 
 int main()
 {
-    TPD::Application* app = new TPD::Application("Theme Park Designer");
-    app->Run();
-    delete app;
+    TPD::Application app("Theme Park Designer");
+    app.Run();
 
-    return 0; 
+    return 0;
 }

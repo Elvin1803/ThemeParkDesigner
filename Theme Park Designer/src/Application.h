@@ -27,7 +27,7 @@ namespace TPD
 
         void Run();
 
-        std::unique_ptr<appConfig> LoadConfig();
+        void Application::LoadConfig(TPD::appConfig& config);
 
     private:
         std::unique_ptr<Window> m_window;

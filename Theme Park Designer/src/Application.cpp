@@ -9,9 +9,10 @@ namespace TPD
 
     Application::Application(const std::string& title)
     {
-        auto config = LoadConfig();
+        TPD::appConfig config;
+        LoadConfig(config);
 
-        m_window = std::make_unique<Window>(title, config->width, config->height);
+        m_window = std::make_unique<Window>(title, config.width, config.height);
 
         TPD::SceneManager::ChangeScene(std::make_unique<TPD::TestScene>());
 
@@ -63,17 +64,13 @@ namespace TPD
         }
     }
 
-    std::unique_ptr<appConfig> Application::LoadConfig()
+    void Application::LoadConfig(TPD::appConfig& config)
     {
         /* TODO: Load config from a file */
 
         // Generate a default config
-        auto config = std::make_unique<appConfig>();
-
-        config->mode = windowMode::WINDOWED;
-        config->height = 720;
-        config->width = 1280;
-
-        return config;
+        config.mode = windowMode::WINDOWED;
+        config.width = 1280;
+        config.height = 720;
     }
 }
