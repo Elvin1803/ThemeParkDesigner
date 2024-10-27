@@ -2,8 +2,6 @@
 #define VERTEX_ARRAY_H
 
 #include <glad/glad.h>
-#include <memory>
-#include <vector>
 
 #include "Buffer.h"
 #include "BufferLayout.h"

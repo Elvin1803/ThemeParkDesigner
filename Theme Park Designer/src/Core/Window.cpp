@@ -1,6 +1,5 @@
+#include "pch.h"
 #include "Window.h"
-
-#include <iostream>
 
 namespace TPD
 {

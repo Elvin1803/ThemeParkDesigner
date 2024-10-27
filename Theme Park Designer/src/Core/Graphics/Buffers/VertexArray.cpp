@@ -1,5 +1,5 @@
+#include "pch.h"
 #include "VertexArray.h"
-#include <iostream>
 
 namespace TPD::Graphics
 {

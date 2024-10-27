@@ -1,7 +1,5 @@
+#include "pch.h"
 #include "Application.h"
-
-#include <memory>
-#include <iostream>
 
 #include "Core/Scene/SceneManager.h"
 #include "TPD/Scenes/TestScene.h"

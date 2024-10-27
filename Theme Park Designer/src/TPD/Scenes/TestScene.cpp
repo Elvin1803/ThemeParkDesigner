@@ -1,8 +1,7 @@
+#include "pch.h"
 #include "TestScene.h"
 
 #include "Core/ECS/Components.h"
-
-#include <iostream>
 
 namespace TPD
 {

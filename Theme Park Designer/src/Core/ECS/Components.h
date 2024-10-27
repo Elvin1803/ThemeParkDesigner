@@ -1,7 +1,6 @@
 #ifndef COMPONENTS_H
 #define COMPONENTS_H
 
-#include <string>
 #include <glm/glm.hpp>
 
 namespace TPD::ECS

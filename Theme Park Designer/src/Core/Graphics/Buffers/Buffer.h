@@ -1,10 +1,7 @@
 #ifndef BUFFER_H
 #define BUFFER_H
 
-#include <memory>
 #include <glad/glad.h>
-#include <vector>
-#include <string>
 
 namespace TPD::Graphics
 {

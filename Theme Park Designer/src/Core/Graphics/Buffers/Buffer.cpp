@@ -1,5 +1,5 @@
+#include "pch.h"
 #include "Buffer.h"
-#include <iostream>
 
 namespace TPD::Graphics
 {

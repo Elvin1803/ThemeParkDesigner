@@ -16,6 +16,9 @@ project "Theme Park Designer"
     targetdir("bin/%{cfg.buildcfg}/%{prj.name}")
     objdir("bin-obj/%{cfg.buildcfg}/%{prj.name}")
 
+    pchsource "%{prj.name}/src/pch.cpp"
+    pchheader "pch.h"
+
     files
     {
         "%{prj.name}/src/**.cpp",
@@ -46,6 +49,9 @@ project "Theme Park Designer"
     {
         "%{prj.name}/libs/GLFW/lib/"
     }
+
+    filter "files:**/glad.c"
+        flags { "NoPCH" }
 
     filter "configurations:Debug"
         defines "TPD_DEBUG"

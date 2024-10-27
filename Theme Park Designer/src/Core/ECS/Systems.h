@@ -1,9 +1,6 @@
 #ifndef SYSTEMS_H
 #define SYSTEMS_H
 
-#include <vector>
-#include <functional>
-
 #include "Systems/TransformSystem.h"
 
 namespace TPD::ECS

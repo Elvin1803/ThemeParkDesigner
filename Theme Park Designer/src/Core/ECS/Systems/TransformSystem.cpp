@@ -1,7 +1,8 @@
+#include "pch.h"
 #include "TransformSystem.h"
 
+
 #include "Core/ECS/Components.h"
-#include <iostream>
 
 namespace TPD::ECS::TransformSystem
 {

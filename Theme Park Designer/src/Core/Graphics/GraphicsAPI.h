@@ -1,8 +1,6 @@
 #ifndef GRAPHICS_API_H
 #define GRAPHICS_API_H
 
-#include <memory>
-
 #include "Buffers/Buffer.h"
 #include "Buffers/BufferLayout.h"
 #include "Buffers/VertexArray.h"

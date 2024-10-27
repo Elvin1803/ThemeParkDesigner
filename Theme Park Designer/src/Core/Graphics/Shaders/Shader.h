@@ -3,8 +3,6 @@
 
 #include <glad/glad.h>
 
-#include <string>
-
 namespace TPD::Graphics
 {
 

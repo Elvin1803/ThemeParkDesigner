@@ -1,9 +1,6 @@
 #ifndef BUFFER_LAYOUT_H
 #define BUFFER_LAYOUT_H
 
-#include <memory>
-#include <vector>
-
 namespace TPD::Graphics
 {
 

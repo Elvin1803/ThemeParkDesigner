@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Systems.h"
 
 namespace TPD::ECS
