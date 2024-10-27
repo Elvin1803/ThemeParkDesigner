@@ -4,7 +4,7 @@
 #include <string>
 #include <glm/glm.hpp>
 
-namespace TPD::ECS::Components
+namespace TPD::ECS
 {
     struct TagComponent
     {

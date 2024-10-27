@@ -9,6 +9,10 @@ namespace TPD
     class TestScene : public Scene
     {
     public:
+        TestScene() 
+            : Scene() 
+        {};
+
         void Init() override;
         void Update() override;
     };

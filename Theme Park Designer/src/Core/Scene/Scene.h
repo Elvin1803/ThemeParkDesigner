@@ -3,6 +3,8 @@
 
 #include <entt/entt.hpp>
 
+#include "Core/ECS/Systems.h"
+
 namespace TPD
 {
 
@@ -15,8 +17,9 @@ namespace TPD
         virtual void Init() = 0;
         virtual void Update() = 0;
 
-    private:
+    protected:
         entt::registry m_registry;
+        std::unique_ptr<ECS::Systems> m_systems;
     };
 
 }
