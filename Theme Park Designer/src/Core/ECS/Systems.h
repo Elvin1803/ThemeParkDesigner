@@ -2,6 +2,7 @@
 #define SYSTEMS_H
 
 #include "Systems/TransformSystem.h"
+#include "Systems/CameraSystem.h"
 
 namespace TPD::ECS
 {

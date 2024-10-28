@@ -11,7 +11,8 @@ namespace TPD::ECS::TransformSystem
 {
     void update(entt::registry& reg, float deltaTime)
     {
-        auto view = reg.view<TPD::ECS::TransformComponent>();
+        // Only need to update modelMatrix of entities that are gonna be rendered
+        auto view = reg.view<TPD::ECS::TransformComponent, TPD::ECS::MeshComponent>();
 
         for (auto entity : view)
         {

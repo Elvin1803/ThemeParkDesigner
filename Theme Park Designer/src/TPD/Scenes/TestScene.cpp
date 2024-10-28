@@ -14,6 +14,7 @@ namespace TPD
         m_registry.emplace<ECS::CameraComponent>(mainCamera);
 
         m_systems->addSystem(ECS::TransformSystem::update);
+        m_systems->addSystem(ECS::CameraSystem::update);
     }
 
     void TestScene::Update()

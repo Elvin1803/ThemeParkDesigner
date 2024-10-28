@@ -25,7 +25,8 @@ namespace TPD::ECS
         glm::mat4 modelMatrix = glm::mat4(1.0f);
         bool isModelDirty = true;
 
-        void SetPosition(const glm::vec3& newPosition) {
+        void SetPosition(const glm::vec3& newPosition)
+        {
             if (position != newPosition)
             {
                 position = newPosition;
@@ -33,7 +34,8 @@ namespace TPD::ECS
             }
         }
 
-        void SetRotation(const glm::vec3& newRotation) {
+        void SetRotation(const glm::vec3& newRotation)
+        {
             if (rotation != newRotation)
             {
                 rotation = newRotation;
@@ -41,7 +43,8 @@ namespace TPD::ECS
             }
         }
 
-        void SetScale(const glm::vec3& newScale) {
+        void SetScale(const glm::vec3& newScale)
+        {
             if (scale != newScale)
             {
                 scale = newScale;
