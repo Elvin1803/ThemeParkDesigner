@@ -23,44 +23,35 @@ namespace TPD::ECS
         glm::vec3 scale = { 1.0f, 1.0f, 1.0f };
 
         glm::mat4 modelMatrix = glm::mat4(1.0f);
-        bool isModelDirty = true;
+        bool isDirty = true;
 
         void SetPosition(const glm::vec3& newPosition)
         {
-            if (position != newPosition)
-            {
-                position = newPosition;
-                isModelDirty = true;
-            }
+            position = newPosition;
+            isDirty = true;
         }
 
         void SetRotation(const glm::vec3& newRotation)
         {
-            if (rotation != newRotation)
-            {
-                rotation = newRotation;
-                isModelDirty = true;
-            }
+            rotation = newRotation;
+            isDirty = true;
         }
 
         void SetScale(const glm::vec3& newScale)
         {
-            if (scale != newScale)
-            {
-                scale = newScale;
-                isModelDirty = true;
-            }
+            scale = newScale;
+            isDirty = true;
         }
     };
 
     struct CameraComponent
     {
-        enum class projectionMode
+        enum class ProjectionMode
         {
             PERSPECTIVE,
             OTHOGRAPHIC
         };
-        struct viewportRect
+        struct ViewportRect
         {
             uint32_t x;
             uint32_t y;
@@ -68,23 +59,50 @@ namespace TPD::ECS
             uint32_t height;
         };
 
-        projectionMode projection = projectionMode::PERSPECTIVE;
+        ProjectionMode projection = ProjectionMode::PERSPECTIVE;
         float FOV = 70;
-        float nearPlane = 0.1f;
-        float farPlane = 1000.0f;
-
-        viewportRect m_viewportRect;
+        const float nearPlane = 0.1f;
+        const float farPlane = 1000.0f;
+        ViewportRect viewportRect;
 
         glm::mat4 projectionMatrix = glm::mat4(1.0f);
         bool isProjectionDirty = true;
         glm::mat4 viewMatrix = glm::mat4(1.0f);
-        bool isViewDirty = true;
+
+        CameraComponent() = delete; // Cannot create a camera without a viewport
+        CameraComponent(ViewportRect& viewport)
+            : viewportRect(viewport)
+        {
+        }
+
+        void SetProjection(const ProjectionMode proj)
+        {
+            projection = proj;
+            isProjectionDirty = true;
+        }
+
+        void SetFOV(const float fov)
+        {
+            FOV = fov;
+            isProjectionDirty = true;
+        }
+
+        void SetViewport(ViewportRect& viewport)
+        {
+            viewportRect = viewport;
+            isProjectionDirty = true;
+        }
     };
 
     struct MeshComponent
     {
         // Look into a MeshManager that will get the VAO based on the meshID
         uint32_t meshID;
+
+        void setMesh(const std::string& path)
+        {
+            /* FIXME: Create a mesh manager */
+        }
     };
 }
 

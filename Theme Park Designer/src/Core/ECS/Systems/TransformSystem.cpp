@@ -17,7 +17,7 @@ namespace TPD::ECS::TransformSystem
         for (auto entity : view)
         {
             auto& transform = view.get<TPD::ECS::TransformComponent>(entity);
-            if (transform.isModelDirty)
+            if (transform.isDirty)
             {
                 std::cout << "Updating modelMatrix" << std::endl;
                 transform.modelMatrix = glm::translate(glm::mat4(1.0f), transform.position);
@@ -26,7 +26,7 @@ namespace TPD::ECS::TransformSystem
                 transform.modelMatrix = glm::rotate(transform.modelMatrix, glm::radians(transform.rotation.z), glm::vec3(0, 0, 1));
                 transform.modelMatrix = glm::scale(transform.modelMatrix, transform.scale);
 
-                transform.isModelDirty = false;
+                transform.isDirty = false;
             }
         }
     }

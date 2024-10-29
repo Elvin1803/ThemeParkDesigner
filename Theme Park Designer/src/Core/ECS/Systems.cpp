@@ -6,6 +6,8 @@ namespace TPD::ECS
     Systems::Systems(entt::registry& reg)
         : m_registry(reg)
     {
+        addSystem(ECS::TransformSystem::update);
+        addSystem(ECS::CameraSystem::update);
     }
 
     void Systems::addSystem(std::function<void(entt::registry& reg, float deltaTime)> system)

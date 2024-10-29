@@ -19,7 +19,7 @@ namespace TPD::ECS::CameraSystem
         for (auto entity : view)
         {
             auto& [transform, camera] = view.get<TPD::ECS::TransformComponent, TPD::ECS::CameraComponent>(entity);
-            if (camera.isViewDirty)
+            if (transform.isDirty)
             {
                 std::cout << "Updating viewMatrix" << std::endl;
                 glm::vec3 rotationRad = glm::radians(transform.rotation);
@@ -27,11 +27,8 @@ namespace TPD::ECS::CameraSystem
                 glm::mat4 rotationMatrix = glm::toMat4(quaternion);
                 glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), -transform.position);
 
-                // La matrice de vue est le produit de la rotation et de la translation
                 camera.viewMatrix = rotationMatrix * translationMatrix;
-                std::cout << glm::to_string(camera.viewMatrix);
-
-                camera.isViewDirty = false;
+                transform.isDirty = false;
             }
         }
     }

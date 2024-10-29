@@ -11,10 +11,8 @@ namespace TPD
         const auto mainCamera = m_registry.create();
         m_registry.emplace<ECS::TagComponent>(mainCamera, "Main camera");
         m_registry.emplace<ECS::TransformComponent>(mainCamera);
-        m_registry.emplace<ECS::CameraComponent>(mainCamera);
-
-        m_systems->addSystem(ECS::TransformSystem::update);
-        m_systems->addSystem(ECS::CameraSystem::update);
+        ECS::CameraComponent::ViewportRect viewport = { 0, 0, 1280, 720 };
+        m_registry.emplace<ECS::CameraComponent>(mainCamera, viewport);
     }
 
     void TestScene::Update()
