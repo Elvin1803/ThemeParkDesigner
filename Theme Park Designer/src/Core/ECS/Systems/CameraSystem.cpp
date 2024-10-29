@@ -13,7 +13,7 @@ namespace TPD::ECS::CameraSystem
 {
     void update(entt::registry& reg, float deltaTime)
     {
-        // Update the viewMatrix of cameras that have a transform component
+        // Update the viewMatrix and projectionMatrix of cameras that have a transform component
         auto view = reg.view<TPD::ECS::TransformComponent, TPD::ECS::CameraComponent>();
 
         for (auto entity : view)
@@ -29,6 +29,20 @@ namespace TPD::ECS::CameraSystem
 
                 camera.viewMatrix = rotationMatrix * translationMatrix;
                 transform.isDirty = false;
+            }
+
+            if (camera.isProjectionDirty)
+            {
+                std::cout << "Updating projectionMatrix" << std::endl;
+                if (camera.projection == ECS::CameraComponent::ProjectionMode::OTHOGRAPHIC)
+                {
+                    camera.projectionMatrix = glm::mat4(1.0f);
+                }
+                else
+                {
+                    camera.projectionMatrix = glm::perspective(glm::radians(camera.FOV), ((float)camera.viewportRect.height / (float)camera.viewportRect.width), camera.nearPlane, camera.farPlane);
+                }
+                camera.isProjectionDirty = false;
             }
         }
     }
