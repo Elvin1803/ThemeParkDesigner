@@ -8,6 +8,7 @@ namespace TPD::ECS
     {
         addSystem(ECS::TransformSystem::update);
         addSystem(ECS::CameraSystem::update);
+        addSystem(ECS::RendererSystem::update);
     }
 
     void Systems::addSystem(std::function<void(entt::registry& reg, float deltaTime)> system)

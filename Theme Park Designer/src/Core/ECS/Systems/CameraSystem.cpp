@@ -14,11 +14,11 @@ namespace TPD::ECS::CameraSystem
     void update(entt::registry& reg, float deltaTime)
     {
         // Update the viewMatrix and projectionMatrix of cameras that have a transform component
-        auto view = reg.view<TPD::ECS::TransformComponent, TPD::ECS::CameraComponent>();
+        auto view = reg.view<TransformComponent, CameraComponent>();
 
         for (auto entity : view)
         {
-            auto& [transform, camera] = view.get<TPD::ECS::TransformComponent, TPD::ECS::CameraComponent>(entity);
+            auto& [transform, camera] = view.get<TransformComponent, CameraComponent>(entity);
             if (transform.isDirty)
             {
                 std::cout << "Updating viewMatrix" << std::endl;
@@ -34,7 +34,7 @@ namespace TPD::ECS::CameraSystem
             if (camera.isProjectionDirty)
             {
                 std::cout << "Updating projectionMatrix" << std::endl;
-                if (camera.projection == ECS::CameraComponent::ProjectionMode::OTHOGRAPHIC)
+                if (camera.projection == CameraComponent::ProjectionMode::OTHOGRAPHIC)
                 {
                     camera.projectionMatrix = glm::mat4(1.0f);
                 }

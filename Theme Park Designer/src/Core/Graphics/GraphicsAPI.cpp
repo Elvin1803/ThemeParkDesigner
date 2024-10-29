@@ -3,10 +3,6 @@
 
 namespace TPD::Graphics::API
 {
-    std::unique_ptr<Renderer> CreateRenderer()
-    {
-        return std::make_unique<Renderer>();
-    }
 
     std::shared_ptr<Shader> CreateShader(const std::string& vertexScr, const std::string& fragmentSrc)
     {

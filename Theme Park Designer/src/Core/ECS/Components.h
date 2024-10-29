@@ -2,6 +2,7 @@
 #define COMPONENTS_H
 
 #include <glm/glm.hpp>
+#include <Core/Scene/MeshManager.h>
 
 namespace TPD::ECS
 {
@@ -99,9 +100,10 @@ namespace TPD::ECS
         // Look into a MeshManager that will get the VAO based on the meshID
         uint32_t meshID;
 
-        void setMesh(const std::string& path)
+        MeshComponent(const std::string& path)
         {
             /* FIXME: Create a mesh manager */
+            meshID = MeshManager::LoadMesh(path);
         }
     };
 }

@@ -12,11 +12,11 @@ namespace TPD::ECS::TransformSystem
     void update(entt::registry& reg, float deltaTime)
     {
         // Only need to update modelMatrix of entities that are gonna be rendered
-        auto view = reg.view<TPD::ECS::TransformComponent, TPD::ECS::MeshComponent>();
+        auto view = reg.view<TransformComponent, MeshComponent>();
 
         for (auto entity : view)
         {
-            auto& transform = view.get<TPD::ECS::TransformComponent>(entity);
+            auto& transform = view.get<TransformComponent>(entity);
             if (transform.isDirty)
             {
                 std::cout << "Updating modelMatrix" << std::endl;

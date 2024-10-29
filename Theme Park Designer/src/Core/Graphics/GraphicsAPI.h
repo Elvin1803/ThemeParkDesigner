@@ -5,17 +5,9 @@
 #include "Buffers/BufferLayout.h"
 #include "Buffers/VertexArray.h"
 #include "Shaders/Shader.h"
-#include "Renderer.h"
 
 namespace TPD::Graphics::API
 {
-    /*
-     * Creates a renderer.
-     *
-     * @return created Renderer.
-     */
-    std::unique_ptr<Renderer> CreateRenderer();
-
     /*
      * Creates a Shader.
      *
