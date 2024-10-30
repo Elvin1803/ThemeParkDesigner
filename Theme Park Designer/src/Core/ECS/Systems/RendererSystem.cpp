@@ -3,6 +3,7 @@
 
 #include <glm/glm.hpp>
 #define GLM_ENABLE_EXPERIMENTAL
+#include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/quaternion.hpp>
 #include <glm/gtx/transform.hpp>
 #include <glm/gtx/string_cast.hpp>
@@ -20,7 +21,7 @@ namespace TPD::ECS::RendererSystem
 
         // Draw for every camera every mesh
         auto cameraView = reg.view<CameraComponent>();
-        auto meshView = reg.view<MeshComponent>();
+        auto meshView = reg.view<MeshComponent, TransformComponent>();
 
         for (auto camera : cameraView)
         {
@@ -29,8 +30,13 @@ namespace TPD::ECS::RendererSystem
 
             for (auto entity : meshView)
             {
-                auto& mesh = meshView.get<MeshComponent>(entity);
+                auto& [mesh, meshTransform] = meshView.get<MeshComponent, TransformComponent>(entity);
                 auto temp = MeshManager::GetMesh(mesh.meshID);
+
+                unsigned int transformLoc = glGetUniformLocation(shader->GetID(), "mvp");
+                glm::mat4 mvp = currentCam.projectionMatrix * currentCam.viewMatrix * meshTransform.modelMatrix;
+                glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(mvp));
+
                 temp->VAO->Bind();
                 glDrawElements(GL_TRIANGLES, temp->VAO->GetIndicesCount(), GL_UNSIGNED_INT, nullptr);
             }

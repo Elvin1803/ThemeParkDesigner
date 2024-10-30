@@ -12,6 +12,8 @@ namespace TPD::Graphics
         Shader(const std::string& vertexScr, const std::string& fragmentSrc);
         ~Shader();
 
+        inline uint32_t GetID() const { return m_shaderProgramID; };
+
         void UseShader() const;
 
     private:

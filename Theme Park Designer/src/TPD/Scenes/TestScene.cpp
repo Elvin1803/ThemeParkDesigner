@@ -20,10 +20,19 @@ namespace TPD
         m_registry.emplace<ECS::TagComponent>(triangleMesh, "Triangle mesh");
         m_registry.emplace<ECS::TransformComponent>(triangleMesh);
         m_registry.emplace<ECS::MeshComponent>(triangleMesh, "triangle");
+        auto& transform = m_registry.get<ECS::TransformComponent>(triangleMesh);
+        transform.SetPosition(glm::vec3(0, 0, -2));
     }
 
     void TestScene::Update()
     {
+        auto view = m_registry.view<ECS::TransformComponent, ECS::MeshComponent>();
+        for (auto entity : view)
+        {
+            auto& transform = view.get<ECS::TransformComponent>(entity);
+            transform.SetRotation(glm::vec3(transform.rotation.x, transform.rotation.y + 1, transform.rotation.z));
+        }
+
         m_systems->Update(0.1f);
     }
 
