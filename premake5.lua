@@ -13,8 +13,8 @@ project "Theme Park Designer"
 
     location("%{prj.name}/")
 
-    targetdir("bin/%{cfg.buildcfg}/%{prj.name}")
-    objdir("bin-obj/%{cfg.buildcfg}/%{prj.name}")
+    targetdir("bin/%{cfg.buildcfg}/%{prj.name}/")
+    objdir("bin-obj/%{cfg.buildcfg}/%{prj.name}/")
 
     pchsource "%{prj.name}/src/pch.cpp"
     pchheader "pch.h"
@@ -35,19 +35,24 @@ project "Theme Park Designer"
 
         "%{prj.name}/libs/glad/include/",
         "%{prj.name}/libs/GLFW/include/",
-        "%{prj.name}/libs/glm",
-        "%{prj.name}/libs/entt/src",
+        "%{prj.name}/libs/glm/",
+        "%{prj.name}/libs/entt/src/",
     }
 
     links
     {
         "opengl32",
-        "glfw3_mt"
+        "glfw3dll"
     }
 
     libdirs
     {
         "%{prj.name}/libs/GLFW/lib/"
+    }
+
+    postbuildcommands
+    {
+        "{COPYFILE} \"libs/GLFW/lib/glfw3.dll\" \"%{cfg.targetdir}/\""
     }
 
     filter "files:**/glad.c"
