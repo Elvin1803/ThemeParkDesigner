@@ -1,4 +1,4 @@
-#version 330 core
+R""(#version 330 core
 
 in vec4 outColor;
 
@@ -8,3 +8,4 @@ void main()
 {
     FragColor = outColor;
 }
+)""

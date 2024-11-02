@@ -23,6 +23,15 @@ namespace TPD
         m_registry.emplace<ECS::MeshComponent>(triangleMesh, "triangle");
         auto& transform = m_registry.get<ECS::TransformComponent>(triangleMesh);
         transform.SetPosition(glm::vec3(0, 0, -2));
+
+        // Init shaders
+        const char* basicVert =
+#include "Core/Graphics/Shaders/Basic.vert"
+            ;
+        const char* basicFrag =
+#include "Core/Graphics/Shaders/Basic.frag"
+            ;
+        m_shaderManager.InitShader("Basic", basicVert, basicFrag);
     }
 
     void TestScene::Update(float deltaTime)

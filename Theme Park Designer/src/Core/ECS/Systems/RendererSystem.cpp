@@ -15,10 +15,6 @@ namespace TPD::ECS::RendererSystem
 {
     void update(entt::registry& reg, float deltaTime)
     {
-        // FIXME: find a good way to give a shader
-        //auto shader = Graphics::API::CreateShader(#include "Core/Graphics/Shaders/Basic.vert", #include "Core/Graphics/Shaders/Basic.frag");
-        //shader->UseShader();
-
         // Draw for every camera every mesh
         auto cameraView = reg.view<CameraComponent>();
         auto meshView = reg.view<MeshComponent, TransformComponent>();
@@ -28,16 +24,17 @@ namespace TPD::ECS::RendererSystem
             const auto& currentCam = cameraView.get<CameraComponent>(camera);
             glViewport(currentCam.viewportRect.x, currentCam.viewportRect.y, currentCam.viewportRect.width, currentCam.viewportRect.height);
 
+            // TODO: Make a material component and put a Shader in it
+            auto shader = ::TPD::SceneManager::GetScene()->GetShaderManager().GetShader("Basic");
+            shader->UseShader();
             for (auto entity : meshView)
             {
                 const auto& [mesh, meshTransform] = meshView.get<MeshComponent, TransformComponent>(entity);
                 auto temp = ::TPD::SceneManager::GetScene()->GetMeshManager().GetMesh(mesh.meshID);
 
-                /*
-                unsigned int transformLoc = glGetUniformLocation(shader->GetID(), "mvp");
+                unsigned int mvpLoc = glGetUniformLocation(shader->GetID(), "mvp");
                 glm::mat4 mvp = currentCam.projectionMatrix * currentCam.viewMatrix * meshTransform.modelMatrix;
-                glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(mvp));
-                */
+                glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, glm::value_ptr(mvp));
 
                 temp->VAO->Bind();
                 glDrawElements(GL_TRIANGLES, temp->VAO->GetIndicesCount(), GL_UNSIGNED_INT, nullptr);

@@ -5,6 +5,7 @@
 
 #include "Core/ECS/Systems.h"
 #include "MeshManager.h"
+#include "ShaderManager.h"
 
 namespace TPD
 {
@@ -20,10 +21,12 @@ namespace TPD
 
         inline entt::registry& GetRegistry() { return m_registry; };
         inline MeshManager& GetMeshManager() { return m_meshManager; };
+        inline ShaderManager& GetShaderManager() { return m_shaderManager; };
 
     protected:
         entt::registry m_registry;
         MeshManager m_meshManager;
+        ShaderManager m_shaderManager;
     };
 
 }

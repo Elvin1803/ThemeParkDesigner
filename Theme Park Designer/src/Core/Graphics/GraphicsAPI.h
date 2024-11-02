@@ -16,7 +16,7 @@ namespace TPD::Graphics::API
      *
      * @return created Shader.
      */
-    std::shared_ptr<Shader> CreateShader(const char* vertexCode, const char* fragmentCode);
+    std::unique_ptr<Shader> CreateShader(const char* vertexCode, const char* fragmentCode);
     
     /*
      * Creates a BufferLayoutElement. Offset is calculated when layout
