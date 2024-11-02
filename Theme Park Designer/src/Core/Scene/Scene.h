@@ -4,6 +4,7 @@
 #include <entt/entt.hpp>
 
 #include "Core/ECS/Systems.h"
+#include "MeshManager.h"
 
 namespace TPD
 {
@@ -18,9 +19,11 @@ namespace TPD
         virtual void Update(float deltaTime) = 0;
 
         inline entt::registry& GetRegistry() { return m_registry; };
+        inline MeshManager& GetMeshManager() { return m_meshManager; };
 
     protected:
         entt::registry m_registry;
+        MeshManager m_meshManager;
     };
 
 }

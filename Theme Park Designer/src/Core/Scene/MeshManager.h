@@ -14,16 +14,19 @@ namespace TPD
     class MeshManager
     {
     public:
-        static uint32_t LoadMesh(const std::string& path);
-        static MeshData* GetMesh(int id);
+        MeshManager() = default;
+        ~MeshManager() = default;
+
+        uint32_t LoadMesh(const std::string& path);
+        MeshData* GetMesh(int id);
 
     private:
-        static uint32_t m_nextMeshID;
-        static std::unordered_map<int, std::unique_ptr<MeshData>> m_meshMap;
-        static std::unordered_map<std::string, int> m_pathToID;
+        uint32_t m_nextMeshID;
+        std::unordered_map<int, std::unique_ptr<MeshData>> m_meshMap;
+        std::unordered_map<std::string, int> m_pathToID;
 
     private:
-        static MeshData LoadMeshFromFile(const std::string& path);
+        MeshData LoadMeshFromFile(const std::string& path);
     };
 
 }

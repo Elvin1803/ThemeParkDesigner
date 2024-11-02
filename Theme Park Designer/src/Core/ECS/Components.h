@@ -2,7 +2,8 @@
 #define COMPONENTS_H
 
 #include <glm/glm.hpp>
-#include <Core/Scene/MeshManager.h>
+
+#include <Core/Scene/SceneManager.h>
 
 namespace TPD::ECS
 {
@@ -102,8 +103,7 @@ namespace TPD::ECS
 
         MeshComponent(const std::string& path)
         {
-            /* FIXME: Create a mesh manager */
-            meshID = MeshManager::LoadMesh(path);
+            meshID = ::TPD::SceneManager::GetScene()->GetMeshManager().LoadMesh(path);
         }
     };
 }

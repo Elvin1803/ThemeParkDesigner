@@ -31,7 +31,7 @@ namespace TPD::ECS::RendererSystem
             for (auto entity : meshView)
             {
                 const auto& [mesh, meshTransform] = meshView.get<MeshComponent, TransformComponent>(entity);
-                auto temp = MeshManager::GetMesh(mesh.meshID);
+                auto temp = ::TPD::SceneManager::GetScene()->GetMeshManager().GetMesh(mesh.meshID);
 
                 /*
                 unsigned int transformLoc = glGetUniformLocation(shader->GetID(), "mvp");

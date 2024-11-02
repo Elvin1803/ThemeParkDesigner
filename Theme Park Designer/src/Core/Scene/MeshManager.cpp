@@ -5,9 +5,6 @@
 
 namespace TPD
 {
-    uint32_t MeshManager::m_nextMeshID = 0;
-    std::unordered_map<int, std::unique_ptr<MeshData>> MeshManager::m_meshMap;
-    std::unordered_map<std::string, int> MeshManager::m_pathToID;
 
     uint32_t MeshManager::LoadMesh(const std::string& path)
     {
