@@ -11,14 +11,10 @@ namespace TPD::ECS
     class Systems
     {
     public:
-        Systems(entt::registry& m_registry);
-
-        void addSystem(std::function<void(entt::registry& reg, float deltaTime)> system);
-        void Update(float deltaTime);
+        static void Update(float deltaTime, entt::registry& registry);
 
     private:
-        std::vector<std::function<void(entt::registry& reg, float deltaTime)>> m_systems;
-        entt::registry& m_registry;
+        static std::vector<std::function<void(entt::registry& reg, float deltaTime)>> m_systems;
     };
 
 }

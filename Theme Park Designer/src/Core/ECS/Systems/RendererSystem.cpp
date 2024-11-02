@@ -33,9 +33,11 @@ namespace TPD::ECS::RendererSystem
                 const auto& [mesh, meshTransform] = meshView.get<MeshComponent, TransformComponent>(entity);
                 auto temp = MeshManager::GetMesh(mesh.meshID);
 
+                /*
                 unsigned int transformLoc = glGetUniformLocation(shader->GetID(), "mvp");
                 glm::mat4 mvp = currentCam.projectionMatrix * currentCam.viewMatrix * meshTransform.modelMatrix;
                 glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(mvp));
+                */
 
                 temp->VAO->Bind();
                 glDrawElements(GL_TRIANGLES, temp->VAO->GetIndicesCount(), GL_UNSIGNED_INT, nullptr);

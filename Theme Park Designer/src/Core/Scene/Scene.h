@@ -11,15 +11,16 @@ namespace TPD
     class Scene
     {
     public:
-        Scene();
-        ~Scene();
+        Scene() = default;
+        ~Scene() = default;
 
         virtual void Init() = 0;
-        virtual void Update() = 0;
+        virtual void Update(float deltaTime) = 0;
+
+        inline entt::registry& GetRegistry() { return m_registry; };
 
     protected:
         entt::registry m_registry;
-        std::unique_ptr<ECS::Systems> m_systems;
     };
 
 }

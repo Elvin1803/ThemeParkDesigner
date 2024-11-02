@@ -30,7 +30,7 @@ namespace TPD
             glClearColor(1, 1, 1, 1);
             glClear(GL_COLOR_BUFFER_BIT);
 
-            TPD::SceneManager::GetScene()->Update();
+            TPD::SceneManager::Update(0.1f);
 
             /*
             Graphics::Renderer::BindShader(shader.get());

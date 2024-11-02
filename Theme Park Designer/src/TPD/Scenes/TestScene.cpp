@@ -2,6 +2,7 @@
 #include "TestScene.h"
 
 #include "Core/ECS/Components.h"
+#include "Core/ECS/Systems.h"
 
 namespace TPD
 {
@@ -24,7 +25,7 @@ namespace TPD
         transform.SetPosition(glm::vec3(0, 0, -2));
     }
 
-    void TestScene::Update()
+    void TestScene::Update(float deltaTime)
     {
         auto view = m_registry.view<ECS::TransformComponent, ECS::MeshComponent>();
         for (auto entity : view)
@@ -32,8 +33,6 @@ namespace TPD
             auto& transform = view.get<ECS::TransformComponent>(entity);
             transform.SetRotation(glm::vec3(transform.rotation.x, transform.rotation.y + 1, transform.rotation.z));
         }
-
-        m_systems->Update(0.1f);
     }
 
 }
