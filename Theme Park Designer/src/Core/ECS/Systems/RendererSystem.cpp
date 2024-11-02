@@ -16,8 +16,8 @@ namespace TPD::ECS::RendererSystem
     void update(entt::registry& reg, float deltaTime)
     {
         // FIXME: find a good way to give a shader
-        auto shader = Graphics::API::CreateShader("Basic", "Basic");
-        shader->UseShader();
+        //auto shader = Graphics::API::CreateShader(#include "Core/Graphics/Shaders/Basic.vert", #include "Core/Graphics/Shaders/Basic.frag");
+        //shader->UseShader();
 
         // Draw for every camera every mesh
         auto cameraView = reg.view<CameraComponent>();

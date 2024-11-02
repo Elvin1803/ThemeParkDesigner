@@ -11,12 +11,12 @@ namespace TPD::Graphics::API
     /*
      * Creates a Shader.
      *
-     * @param vertexScr: Specifies which vertexShader code to use.
-     * @param fragmentSrc: Specifies which fragmentShader code to use.
+     * @param vertexPath: The vertexShader code to use.
+     * @param fragmentPath: The fragmentShader code to use.
      *
      * @return created Shader.
      */
-    std::shared_ptr<Shader> CreateShader(const std::string& vertexScr, const std::string& fragmentSrc);
+    std::shared_ptr<Shader> CreateShader(const char* vertexCode, const char* fragmentCode);
     
     /*
      * Creates a BufferLayoutElement. Offset is calculated when layout

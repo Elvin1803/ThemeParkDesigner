@@ -9,7 +9,7 @@ namespace TPD::Graphics
     class Shader
     {
     public:
-        Shader(const std::string& vertexScr, const std::string& fragmentSrc);
+        Shader(const char* vertexCode, const char* fragmentCode);
         ~Shader();
 
         inline uint32_t GetID() const { return m_shaderProgramID; };

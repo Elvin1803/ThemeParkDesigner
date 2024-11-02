@@ -4,9 +4,9 @@
 namespace TPD::Graphics::API
 {
 
-    std::shared_ptr<Shader> CreateShader(const std::string& vertexScr, const std::string& fragmentSrc)
+    std::shared_ptr<Shader> CreateShader(const char* vertexCode, const char* fragmentCode)
     {
-        return std::make_shared<Graphics::Shader>(vertexScr, fragmentSrc);
+        return std::make_shared<Graphics::Shader>(vertexCode, fragmentCode);
     }
 
     BufferLayoutElement CreateBufferLayoutElement(uint32_t count, ShaderDataType type, bool normalized)

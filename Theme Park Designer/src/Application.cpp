@@ -16,9 +16,6 @@ namespace TPD
         TPD::SceneManager::ChangeScene(std::make_unique<TPD::TestScene>());
 
         // For testing purpose
-        /*
-        shader = Graphics::API::CreateShader("Basic", "Basic");
-        */
     }
 
     Application::~Application()
