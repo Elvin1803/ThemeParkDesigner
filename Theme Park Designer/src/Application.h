@@ -32,7 +32,7 @@ namespace TPD
         std::unique_ptr<Window> m_window;
 
     private:
-        appConfig Application::LoadConfig();
+        appConfig LoadConfig();
     };
 
 }

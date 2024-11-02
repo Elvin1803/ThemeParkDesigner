@@ -39,7 +39,7 @@ namespace TPD::Graphics
     {
         if (m_layout == nullptr)
         {
-            std::cerr << "No layout set for this vertex array !" << std::endl;
+            TPD_LOG_ERROR("No layout set for this vertex array !");
             return;
         }
 
@@ -73,7 +73,7 @@ namespace TPD::Graphics
                 }
             default:
                 {
-                    std::cerr << "Did not recognize the shader data type" << std::endl;
+                    TPD_LOG_WARN("Did not recognize the shader data type");
                     return;
                 }
             }

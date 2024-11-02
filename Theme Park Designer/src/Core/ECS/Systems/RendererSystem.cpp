@@ -25,12 +25,12 @@ namespace TPD::ECS::RendererSystem
 
         for (auto camera : cameraView)
         {
-            auto& currentCam = cameraView.get<CameraComponent>(camera);
+            const auto& currentCam = cameraView.get<CameraComponent>(camera);
             glViewport(currentCam.viewportRect.x, currentCam.viewportRect.y, currentCam.viewportRect.width, currentCam.viewportRect.height);
 
             for (auto entity : meshView)
             {
-                auto& [mesh, meshTransform] = meshView.get<MeshComponent, TransformComponent>(entity);
+                const auto& [mesh, meshTransform] = meshView.get<MeshComponent, TransformComponent>(entity);
                 auto temp = MeshManager::GetMesh(mesh.meshID);
 
                 unsigned int transformLoc = glGetUniformLocation(shader->GetID(), "mvp");

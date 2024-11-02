@@ -12,7 +12,7 @@ namespace TPD
         {
             if (!glfwInit())
             {
-                std::cerr << "GLFW could not be initialized !\n";
+                TPD_LOG_FATAL("GLFW could not be initialized !");
             }
 
             isGLFWInitialized = true;
@@ -26,7 +26,7 @@ namespace TPD
 
         if (m_window == nullptr)
         {
-            std::cerr << "Failed to create window !\n";
+            TPD_LOG_FATAL("Failed to create window !");
             glfwTerminate();
             return;
         }
@@ -36,7 +36,7 @@ namespace TPD
         // Create OpenGL context
         if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
         {
-            std::cerr << "Failed to initialize GLAD !" << std::endl;
+            TPD_LOG_FATAL("Failed to initialize GLAD !");
         }
     }
 

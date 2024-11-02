@@ -9,7 +9,7 @@ workspace "Theme Park Designer"
 project "Theme Park Designer"
     kind "ConsoleApp"
     language "C++"
-    cppdialect "C++17"
+    cppdialect "C++20"
 
     location("%{prj.name}/")
 

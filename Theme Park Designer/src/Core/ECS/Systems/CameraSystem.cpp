@@ -18,10 +18,10 @@ namespace TPD::ECS::CameraSystem
 
         for (auto entity : view)
         {
-            auto& [transform, camera] = view.get<TransformComponent, CameraComponent>(entity);
+            const auto& [transform, camera] = view.get<TransformComponent, CameraComponent>(entity);
             if (transform.isDirty)
             {
-                std::cout << "Updating viewMatrix" << std::endl;
+                TPD_LOG_INFO("Updating viewMatrix");
                 glm::vec3 rotationRad = glm::radians(transform.rotation);
                 glm::quat quaternion = glm::quat(rotationRad);
                 glm::mat4 rotationMatrix = glm::toMat4(quaternion);
@@ -33,7 +33,7 @@ namespace TPD::ECS::CameraSystem
 
             if (camera.isProjectionDirty)
             {
-                std::cout << "Updating projectionMatrix" << std::endl;
+                TPD_LOG_INFO("Updating projectionMatrix");
                 if (camera.projection == CameraComponent::ProjectionMode::OTHOGRAPHIC)
                 {
                     camera.projectionMatrix = glm::mat4(1.0f);
