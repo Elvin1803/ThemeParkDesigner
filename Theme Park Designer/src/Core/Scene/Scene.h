@@ -4,11 +4,15 @@
 #include <entt/entt.hpp>
 
 #include "Core/ECS/Systems.h"
-#include "MeshManager.h"
-#include "ShaderManager.h"
+#include "Core/Graphics/Buffers/VertexArray.h"
+#include "Core/Graphics/Shaders/ShaderProgram.h"
+
+#include "ResourceManager.hxx"
 
 namespace TPD
 {
+    using MeshManager = ResourceManager<Graphics::VertexArray>;
+    using ShaderManager = ResourceManager<Graphics::ShaderProgram>;
 
     class Scene
     {
@@ -25,7 +29,7 @@ namespace TPD
 
     protected:
         entt::registry m_registry;
-        MeshManager m_meshManager;
+        MeshManager m_meshManager; // Maybe change to a MeshData later (Don't forget to update code in rendererSystem)
         ShaderManager m_shaderManager;
     };
 

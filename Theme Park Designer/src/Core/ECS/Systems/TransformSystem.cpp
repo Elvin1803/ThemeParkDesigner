@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/transform.hpp>
+#include <glm/gtx/quaternion.hpp>
 
 #include "Core/ECS/Components.h"
 
@@ -20,11 +21,13 @@ namespace TPD::ECS::TransformSystem
             if (transform.isDirty)
             {
                 TPD_LOG_INFO("Updating modelMatrix");
-                transform.modelMatrix = glm::translate(glm::mat4(1.0f), transform.position);
-                transform.modelMatrix = glm::rotate(transform.modelMatrix, glm::radians(transform.rotation.x), glm::vec3(1, 0, 0));
-                transform.modelMatrix = glm::rotate(transform.modelMatrix, glm::radians(transform.rotation.y), glm::vec3(0, 1, 0));
-                transform.modelMatrix = glm::rotate(transform.modelMatrix, glm::radians(transform.rotation.z), glm::vec3(0, 0, 1));
-                transform.modelMatrix = glm::scale(transform.modelMatrix, transform.scale);
+                glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), transform.position);
+                glm::vec3 rotationRad = glm::radians(transform.rotation);
+                glm::quat quaternion = glm::quat(rotationRad);
+                glm::mat4 rotationMatrix = glm::toMat4(quaternion);
+                glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), transform.scale);
+
+                transform.modelMatrix = translationMatrix * rotationMatrix * scaleMatrix;
 
                 transform.isDirty = false;
             }

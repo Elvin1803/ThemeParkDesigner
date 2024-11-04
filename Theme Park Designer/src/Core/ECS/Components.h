@@ -51,7 +51,7 @@ namespace TPD::ECS
         enum class ProjectionMode
         {
             PERSPECTIVE,
-            OTHOGRAPHIC
+            ORTHOGRAPHIC
         };
         struct ViewportRect
         {
@@ -100,11 +100,6 @@ namespace TPD::ECS
     {
         // Look into a MeshManager that will get the VAO based on the meshID
         uint32_t meshID;
-
-        MeshComponent(const std::string& path)
-        {
-            meshID = ::TPD::SceneManager::GetScene()->GetMeshManager().LoadMesh(path);
-        }
     };
 }
 

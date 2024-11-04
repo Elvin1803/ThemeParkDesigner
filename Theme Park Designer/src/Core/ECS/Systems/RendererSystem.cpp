@@ -24,20 +24,22 @@ namespace TPD::ECS::RendererSystem
             const auto& currentCam = cameraView.get<CameraComponent>(camera);
             glViewport(currentCam.viewportRect.x, currentCam.viewportRect.y, currentCam.viewportRect.width, currentCam.viewportRect.height);
 
-            // TODO: Make a material component and put a Shader in it
-            auto shader = ::TPD::SceneManager::GetScene()->GetShaderManager().GetShader("Basic");
+            // TODO: Make a material component and put a ShaderID in it
+            auto shader = ::TPD::SceneManager::GetScene()->GetShaderManager().GetResourceData(0);
             shader->UseShader();
             for (auto entity : meshView)
             {
                 const auto& [mesh, meshTransform] = meshView.get<MeshComponent, TransformComponent>(entity);
-                auto temp = ::TPD::SceneManager::GetScene()->GetMeshManager().GetMesh(mesh.meshID);
+                auto temp = ::TPD::SceneManager::GetScene()->GetMeshManager().GetResourceData(mesh.meshID);
 
                 unsigned int mvpLoc = glGetUniformLocation(shader->GetID(), "mvp");
-                glm::mat4 mvp = currentCam.projectionMatrix * currentCam.viewMatrix * meshTransform.modelMatrix;
+                glm::mat4 mvp = currentCam.projectionMatrix* currentCam.viewMatrix * meshTransform.modelMatrix;
+
+                TPD_LOG_INFO("mvp: {}", glm::to_string(mvp));
                 glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, glm::value_ptr(mvp));
 
-                temp->VAO->Bind();
-                glDrawElements(GL_TRIANGLES, temp->VAO->GetIndicesCount(), GL_UNSIGNED_INT, nullptr);
+                temp->Bind();
+                glDrawElements(GL_TRIANGLES, temp->GetIndicesCount(), GL_UNSIGNED_INT, nullptr);
             }
         }
     }

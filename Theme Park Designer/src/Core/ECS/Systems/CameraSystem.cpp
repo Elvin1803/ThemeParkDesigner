@@ -21,20 +21,19 @@ namespace TPD::ECS::CameraSystem
             const auto& [transform, camera] = view.get<TransformComponent, CameraComponent>(entity);
             if (transform.isDirty)
             {
-                TPD_LOG_INFO("Updating viewMatrix");
                 glm::vec3 rotationRad = glm::radians(transform.rotation);
                 glm::quat quaternion = glm::quat(rotationRad);
                 glm::mat4 rotationMatrix = glm::toMat4(quaternion);
                 glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), -transform.position);
-
                 camera.viewMatrix = rotationMatrix * translationMatrix;
+
+                TPD_LOG_INFO("Updating viewMatrix: {}", glm::to_string(camera.viewMatrix));
                 transform.isDirty = false;
             }
 
             if (camera.isProjectionDirty)
             {
-                TPD_LOG_INFO("Updating projectionMatrix");
-                if (camera.projection == CameraComponent::ProjectionMode::OTHOGRAPHIC)
+                if (camera.projection == CameraComponent::ProjectionMode::ORTHOGRAPHIC)
                 {
                     camera.projectionMatrix = glm::mat4(1.0f);
                 }
@@ -42,6 +41,7 @@ namespace TPD::ECS::CameraSystem
                 {
                     camera.projectionMatrix = glm::perspective(glm::radians(camera.FOV), ((float)camera.viewportRect.height / (float)camera.viewportRect.width), camera.nearPlane, camera.farPlane);
                 }
+                TPD_LOG_INFO("Updating projectionMatrix: {}", glm::to_string(camera.projectionMatrix));
                 camera.isProjectionDirty = false;
             }
         }

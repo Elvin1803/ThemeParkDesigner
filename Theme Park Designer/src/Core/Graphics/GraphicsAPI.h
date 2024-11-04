@@ -4,7 +4,7 @@
 #include "Buffers/Buffer.h"
 #include "Buffers/BufferLayout.h"
 #include "Buffers/VertexArray.h"
-#include "Shaders/Shader.h"
+#include "Shaders/ShaderProgram.h"
 
 namespace TPD::Graphics::API
 {
@@ -16,7 +16,7 @@ namespace TPD::Graphics::API
      *
      * @return created Shader.
      */
-    std::unique_ptr<Shader> CreateShader(const char* vertexCode, const char* fragmentCode);
+    std::unique_ptr<ShaderProgram> CreateShader(const char* vertexCode, const char* fragmentCode);
     
     /*
      * Creates a BufferLayoutElement. Offset is calculated when layout

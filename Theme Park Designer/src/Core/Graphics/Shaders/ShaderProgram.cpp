@@ -1,10 +1,10 @@
 #include "pch.h"
-#include "Shader.h"
+#include "ShaderProgram.h"
 
 namespace TPD::Graphics
 {
 
-    Shader::Shader(const char* vertexCode, const char* fragmentCode)
+    ShaderProgram::ShaderProgram(const char* vertexCode, const char* fragmentCode)
     {
         // Vertex shader
         uint32_t vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -43,12 +43,12 @@ namespace TPD::Graphics
         glDeleteShader(fragmentShader);
     }
 
-    Shader::~Shader()
+    ShaderProgram::~ShaderProgram()
     {
         glDeleteProgram(m_shaderProgramID);
     }
 
-    void Shader::UseShader() const
+    void ShaderProgram::UseShader() const
     {
         glUseProgram(m_shaderProgramID);
     }
