@@ -16,13 +16,14 @@ namespace TPD
 
         // Create Triangle mesh
         float vertices[] = {
-            -0.3f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f, 1.0f,
-            0.3f,  -0.5f, 0.0f,  0.0f, 1.0f, 0.0f, 1.0f,
-            0.0f,   0.5f, 0.0f,  0.0f, 0.0f, 1.0f, 1.0f,
+            -0.5f, 0.5f,  0.0f,  1.0f, 0.0f, 0.0f, 1.0f,
+            -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f, 1.0f,
+            0.5f,  -0.5f, 0.0f,  0.0f, 1.0f, 0.0f, 1.0f,
+            0.5f,   0.5f, 0.0f,  0.0f, 0.0f, 1.0f, 1.0f,
         };
 
         uint32_t indices[] = {
-            0, 1, 2
+            0, 1, 2, 0, 2, 3
         };
 
         auto layout = Graphics::API::CreateBufferLayout({
@@ -32,8 +33,8 @@ namespace TPD
 
         auto vbo = Graphics::API::CreateVertexBuffer(vertices, sizeof(vertices));
         auto ibo = Graphics::API::CreateIndexBuffer(indices, sizeof(indices));
-        auto triangle = Graphics::API::CreateVertexArray(layout, std::move(ibo), std::move(vbo));
-        this->m_meshManager.PushResource("triangle", std::move(triangle));
+        auto square = Graphics::API::CreateVertexArray(layout, std::move(ibo), std::move(vbo));
+        this->m_meshManager.PushResource("square", std::move(square));
 
         // Create a camera
         const auto mainCamera = m_registry.create();
@@ -43,24 +44,30 @@ namespace TPD
         m_registry.emplace<ECS::CameraComponent>(mainCamera, viewport);
         auto& cam = m_registry.get<ECS::CameraComponent>(mainCamera);
         cam.SetProjection(ECS::CameraComponent::ProjectionMode::ORTHOGRAPHIC);
+        auto& camTransform = m_registry.get<ECS::TransformComponent>(mainCamera);
+        camTransform.SetPosition(glm::vec3(0, 0, 1));
 
         // create a triangle mesh
-        const auto triangleMesh = m_registry.create();
-        m_registry.emplace<ECS::TagComponent>(triangleMesh, "Triangle mesh");
-        m_registry.emplace<ECS::TransformComponent>(triangleMesh);
-        m_registry.emplace<ECS::MeshComponent>(triangleMesh, m_meshManager.GetResouceID("triangle"));
-        auto& transform = m_registry.get<ECS::TransformComponent>(triangleMesh);
-        transform.SetPosition(glm::vec3(0, 0, -1));
+        const auto squareMesh = m_registry.create();
+        m_registry.emplace<ECS::TagComponent>(squareMesh, "Square mesh");
+        m_registry.emplace<ECS::TransformComponent>(squareMesh);
+        m_registry.emplace<ECS::MeshComponent>(squareMesh, m_meshManager.GetResouceID("square"));
     }
 
     void TestScene::Update(float deltaTime)
     {
-        auto view = m_registry.view<ECS::TransformComponent, ECS::MeshComponent>();
-        for (auto entity : view)
+        auto squareView = m_registry.view<ECS::TransformComponent, ECS::MeshComponent>();
+        for (auto entity : squareView)
         {
-            auto& transform = view.get<ECS::TransformComponent>(entity);
-            //transform.SetRotation(glm::vec3(transform.rotation.x, transform.rotation.y, transform.rotation.z + 1));
-            //transform.SetPosition(glm::vec3(transform.position.x, transform.position.y, transform.position.z - 0.01f));
+            auto& squareTransform = squareView.get<ECS::TransformComponent>(entity);
+            squareTransform.SetRotation(glm::vec3(squareTransform.rotation.x, squareTransform.rotation.y, squareTransform.rotation.z + 1));
+        }
+
+        auto camView = m_registry.view<ECS::TransformComponent, ECS::CameraComponent>();
+        for (auto entity : camView)
+        {
+            auto& camTransform = camView.get<ECS::TransformComponent>(entity);
+            camTransform.SetRotation(glm::vec3(camTransform.rotation.x, camTransform.rotation.y + 1, camTransform.rotation.z));
         }
     }
 

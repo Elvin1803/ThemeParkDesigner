@@ -33,13 +33,14 @@ namespace TPD::ECS::CameraSystem
 
             if (camera.isProjectionDirty)
             {
+                float aspectRatio = ((float)camera.viewportRect.width / (float)camera.viewportRect.height);
                 if (camera.projection == CameraComponent::ProjectionMode::ORTHOGRAPHIC)
                 {
-                    camera.projectionMatrix = glm::mat4(1.0f);
+                    camera.projectionMatrix = glm::ortho(-(aspectRatio / 2), (aspectRatio / 2), -1.0f, 1.0f, 0.0f, 1000.0f);
                 }
                 else
                 {
-                    camera.projectionMatrix = glm::perspective(glm::radians(camera.FOV), ((float)camera.viewportRect.height / (float)camera.viewportRect.width), camera.nearPlane, camera.farPlane);
+                    camera.projectionMatrix = glm::perspective(glm::radians(camera.FOV), aspectRatio, camera.nearPlane, camera.farPlane);
                 }
                 TPD_LOG_INFO("Updating projectionMatrix: {}", glm::to_string(camera.projectionMatrix));
                 camera.isProjectionDirty = false;
