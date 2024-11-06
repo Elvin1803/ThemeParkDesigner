@@ -36,7 +36,7 @@ namespace TPD::ECS::CameraSystem
                 float aspectRatio = ((float)camera.viewportRect.width / (float)camera.viewportRect.height);
                 if (camera.projection == CameraComponent::ProjectionMode::ORTHOGRAPHIC)
                 {
-                    camera.projectionMatrix = glm::ortho(-(aspectRatio / 2), (aspectRatio / 2), -1.0f, 1.0f, 0.0f, 1000.0f);
+                    camera.projectionMatrix = glm::ortho(-(aspectRatio / 2), (aspectRatio / 2), -0.5f, 0.5f, 0.0f, 1000.0f);
                 }
                 else
                 {
