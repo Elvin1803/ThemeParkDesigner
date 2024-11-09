@@ -96,10 +96,9 @@ namespace TPD::ECS
         }
     };
 
-    struct MeshComponent
+    struct ModelComponent
     {
-        // Look into a MeshManager that will get the VAO based on the meshID
-        uint32_t meshID;
+        uint32_t modelID;
     };
 }
 

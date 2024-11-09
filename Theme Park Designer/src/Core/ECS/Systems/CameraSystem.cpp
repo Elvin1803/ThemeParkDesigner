@@ -28,7 +28,7 @@ namespace TPD::ECS::CameraSystem
                 camera.viewMatrix = rotationMatrix * translationMatrix;
 
                 TPD_LOG_INFO("Updating viewMatrix: {}", glm::to_string(camera.viewMatrix));
-                transform.isDirty = false;
+                transform.isDirty = false; // TransformSystem must not update before camera
             }
 
             if (camera.isProjectionDirty)

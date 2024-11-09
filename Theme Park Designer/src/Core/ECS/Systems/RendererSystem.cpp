@@ -17,29 +17,35 @@ namespace TPD::ECS::RendererSystem
     {
         // Draw for every camera every mesh
         auto cameraView = reg.view<CameraComponent>();
-        auto meshView = reg.view<MeshComponent, TransformComponent>();
+        auto meshView = reg.view<ModelComponent, TransformComponent>();
 
-        for (auto camera : cameraView)
+        for (auto& camera : cameraView)
         {
             const auto& currentCam = cameraView.get<CameraComponent>(camera);
             glViewport(currentCam.viewportRect.x, currentCam.viewportRect.y, currentCam.viewportRect.width, currentCam.viewportRect.height);
 
             // TODO: Make a material component and put a ShaderID in it
-            auto shader = ::TPD::SceneManager::GetScene()->GetShaderManager().GetResourceData(0);
+            const auto& shader = ::TPD::SceneManager::GetScene()->GetShaderManager().GetResourceData(0);
             shader->UseShader();
-            for (auto entity : meshView)
+            for (const auto& entity : meshView)
             {
-                const auto& [mesh, meshTransform] = meshView.get<MeshComponent, TransformComponent>(entity);
-                auto temp = ::TPD::SceneManager::GetScene()->GetMeshManager().GetResourceData(mesh.meshID);
+                const auto& [model, meshTransform] = meshView.get<ModelComponent, TransformComponent>(entity);
+                const auto& temp = ::TPD::SceneManager::GetScene()->GetModelManager().GetResourceData(model.modelID);
 
                 unsigned int mvpLoc = glGetUniformLocation(shader->GetID(), "mvp");
-                glm::mat4 mvp = currentCam.projectionMatrix* currentCam.viewMatrix * meshTransform.modelMatrix;
+                glm::mat4 mvp = currentCam.projectionMatrix * currentCam.viewMatrix * meshTransform.modelMatrix;
+                //glm::mat4 mvp = currentCam.projectionMatrix * currentCam.viewMatrix;
 
                 TPD_LOG_INFO("mvp: {}", glm::to_string(mvp));
                 glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, glm::value_ptr(mvp));
 
-                temp->Bind();
-                glDrawElements(GL_TRIANGLES, temp->GetIndicesCount(), GL_UNSIGNED_INT, nullptr);
+                auto& meshes = temp->GetMeshes();
+                for (auto const& [_, mesh] : meshes)
+                {
+                    const auto& vao = mesh->GetVAO();
+                    vao->Bind();
+                    glDrawElements(GL_TRIANGLES, vao->GetIndicesCount(), GL_UNSIGNED_INT, nullptr);
+                }
             }
         }
     }

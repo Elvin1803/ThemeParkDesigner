@@ -12,8 +12,7 @@ namespace TPD::ECS::TransformSystem
 {
     void update(entt::registry& reg, float deltaTime)
     {
-        // Only need to update modelMatrix of entities that are gonna be rendered
-        auto view = reg.view<TransformComponent, MeshComponent>();
+        auto view = reg.view<TransformComponent, ModelComponent>();
 
         for (auto entity : view)
         {
@@ -28,7 +27,6 @@ namespace TPD::ECS::TransformSystem
                 glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), transform.scale);
 
                 transform.modelMatrix = translationMatrix * rotationMatrix * scaleMatrix;
-
                 transform.isDirty = false;
             }
         }
