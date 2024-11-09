@@ -18,7 +18,7 @@ namespace TPD::Graphics
         uint32_t count;
         ShaderDataType type;
         bool normalized;
-        uint32_t offset = 0;
+        uint64_t offset = 0;
     };
  
     class BufferLayout

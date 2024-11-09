@@ -15,6 +15,8 @@ namespace TPD::ECS::RendererSystem
 {
     void update(entt::registry& reg, float deltaTime)
     {
+        glClearColor(1, 1, 1, 1);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         // Draw for every camera every mesh
         auto cameraView = reg.view<CameraComponent>();
         auto meshView = reg.view<ModelComponent, TransformComponent>();
@@ -27,6 +29,7 @@ namespace TPD::ECS::RendererSystem
             // TODO: Make a material component and put a ShaderID in it
             const auto& shader = ::TPD::SceneManager::GetScene()->GetShaderManager().GetResourceData(0);
             shader->UseShader();
+            glEnable(GL_DEPTH_TEST);
             for (const auto& entity : meshView)
             {
                 const auto& [model, meshTransform] = meshView.get<ModelComponent, TransformComponent>(entity);

@@ -19,6 +19,7 @@ project "Theme Park Designer"
     pchsource "%{prj.name}/src/pch.cpp"
     pchheader "pch.h"
 
+
     files
     {
         "%{prj.name}/src/**.cpp",
@@ -57,6 +58,9 @@ project "Theme Park Designer"
 
     filter "files:**/glad.c"
         flags { "NoPCH" }
+
+    filter { "action:vs*" }
+        debugdir "bin/"
 
     filter "configurations:Debug"
         defines "TPD_DEBUG"

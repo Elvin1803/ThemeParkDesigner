@@ -58,7 +58,7 @@ namespace TPD::Graphics
                         ShaderDataTypeToOpenGLBaseType(element.type),
                         element.normalized ? GL_TRUE : GL_FALSE,
                         m_layout->GetStride(),
-                        (const void*)element.offset);
+                        reinterpret_cast<const void*>(element.offset));
                     break;
                 }
             case ShaderDataType::Int:
@@ -68,7 +68,7 @@ namespace TPD::Graphics
                         element.count,
                         ShaderDataTypeToOpenGLBaseType(element.type),
                         m_layout->GetStride(),
-                        (const void*)element.offset);
+                        reinterpret_cast<const void*>(element.offset));
                     break;
                 }
             default:

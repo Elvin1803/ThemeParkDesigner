@@ -23,17 +23,17 @@ namespace TPD
         //auto& cam = m_registry.get<ECS::CameraComponent>(mainCamera);
         //cam.SetProjection(ECS::CameraComponent::ProjectionMode::ORTHOGRAPHIC);
         auto& camTransform = m_registry.get<ECS::TransformComponent>(mainCamera);
-        camTransform.SetPosition(glm::vec3(0, 0, 1));
+        camTransform.SetPosition(glm::vec3(0, 0, 4));
 
-        // Create square mesh
-        auto square = std::make_unique<Graphics::Model>();
-        square->LoadFromFile("a");
-        this->m_modelManager.PushResource("square", std::move(square));
+        // Create fish mesh
+        auto fish = std::make_unique<Graphics::Model>();
+        fish->LoadFromFile("fish.obj");
+        this->m_modelManager.PushResource("fish", std::move(fish));
         // create a square entity
-        const auto squareMesh = m_registry.create();
-        m_registry.emplace<ECS::TagComponent>(squareMesh, "Square mesh");
-        m_registry.emplace<ECS::TransformComponent>(squareMesh);
-        m_registry.emplace<ECS::ModelComponent>(squareMesh, m_modelManager.GetResouceID("square"));
+        const auto fishMesh = m_registry.create();
+        m_registry.emplace<ECS::TagComponent>(fishMesh, "Fish mesh");
+        m_registry.emplace<ECS::TransformComponent>(fishMesh);
+        m_registry.emplace<ECS::ModelComponent>(fishMesh, m_modelManager.GetResouceID("fish"));
     }
 
     void TestScene::Update(float deltaTime)
@@ -42,9 +42,10 @@ namespace TPD
         for (auto entity : squareView)
         {
             auto& squareTransform = squareView.get<ECS::TransformComponent>(entity);
-            squareTransform.SetRotation(glm::vec3(squareTransform.rotation.x, squareTransform.rotation.y, squareTransform.rotation.z + 1));
+            squareTransform.SetRotation(glm::vec3(squareTransform.rotation.x, squareTransform.rotation.y - 2, squareTransform.rotation.z));
         }
 
+        /*
         auto camView = m_registry.view<ECS::TransformComponent, ECS::CameraComponent>();
         for (auto entity : camView)
         {
@@ -52,6 +53,7 @@ namespace TPD
             //camTransform.SetPosition(glm::vec3(camTransform.position.x, camTransform.position.y, camTransform.position.z + 0.1f));
             camTransform.SetRotation(glm::vec3(camTransform.rotation.x, camTransform.rotation.y + 1, camTransform.rotation.z));
         }
+        */
     }
 
 }

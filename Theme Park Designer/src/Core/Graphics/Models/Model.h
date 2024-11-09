@@ -15,6 +15,8 @@ namespace TPD::Graphics
         void LoadFromFile(const std::string& filePath);
         const std::unordered_map<std::string, std::unique_ptr<Mesh>>& GetMeshes() { return m_meshes;};
 
+        void PushMesh(const std::string& name, std::unique_ptr<Mesh> mesh);
+
     private:
         std::unordered_map<std::string, std::unique_ptr<Mesh>> m_meshes;
     };
