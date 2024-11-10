@@ -6,7 +6,7 @@
 namespace TPD::Graphics::OBJLoader
 {
 
-    void Load(const std::string& filePath, Model& model);
+    void Load(const std::string& filePath);
 
     void PushMesh(const std::string& name, Model& model, std::shared_ptr<Graphics::BufferLayout> layout, std::vector<float> vertexBuffer, std::vector<uint32_t> indexBuffer);
     void ParseVertex(std::stringstream& ss, std::vector<float>& data);

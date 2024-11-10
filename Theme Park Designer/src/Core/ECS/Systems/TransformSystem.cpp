@@ -19,7 +19,6 @@ namespace TPD::ECS::TransformSystem
             auto& transform = view.get<TransformComponent>(entity);
             if (transform.isDirty)
             {
-                TPD_LOG_INFO("Updating modelMatrix");
                 glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), transform.position);
                 glm::vec3 rotationRad = glm::radians(transform.rotation);
                 glm::quat quaternion = glm::quat(rotationRad);

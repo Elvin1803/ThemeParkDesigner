@@ -27,7 +27,7 @@ namespace TPD::ECS::CameraSystem
                 glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), -transform.position);
                 camera.viewMatrix = rotationMatrix * translationMatrix;
 
-                TPD_LOG_INFO("Updating viewMatrix: {}", glm::to_string(camera.viewMatrix));
+                //TPD_LOG_INFO("Updating viewMatrix: {}", glm::to_string(camera.viewMatrix));
                 transform.isDirty = false; // TransformSystem must not update before camera
             }
 
@@ -42,7 +42,7 @@ namespace TPD::ECS::CameraSystem
                 {
                     camera.projectionMatrix = glm::perspective(glm::radians(camera.FOV), aspectRatio, camera.nearPlane, camera.farPlane);
                 }
-                TPD_LOG_INFO("Updating projectionMatrix: {}", glm::to_string(camera.projectionMatrix));
+                //TPD_LOG_INFO("Updating projectionMatrix: {}", glm::to_string(camera.projectionMatrix));
                 camera.isProjectionDirty = false;
             }
         }

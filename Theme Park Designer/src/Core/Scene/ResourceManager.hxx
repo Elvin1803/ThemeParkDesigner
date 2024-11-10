@@ -23,7 +23,7 @@ namespace TPD
             return m_resourceMap.at(id).get();
         }
 
-        uint32_t GetResouceID(const std::string& name)
+        uint32_t GetResourceID(const std::string& name)
         {
             return m_pathToID.at(name);
         }

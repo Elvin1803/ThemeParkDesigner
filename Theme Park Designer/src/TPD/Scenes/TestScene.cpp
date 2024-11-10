@@ -4,6 +4,7 @@
 #include "Core/ECS/Components.h"
 #include "Core/ECS/Systems.h"
 #include "Core/Graphics/GraphicsAPI.h"
+#include "Core/Graphics/Models/ModelLoader/ModelLoader.h"
 
 namespace TPD
 {
@@ -23,17 +24,24 @@ namespace TPD
         //auto& cam = m_registry.get<ECS::CameraComponent>(mainCamera);
         //cam.SetProjection(ECS::CameraComponent::ProjectionMode::ORTHOGRAPHIC);
         auto& camTransform = m_registry.get<ECS::TransformComponent>(mainCamera);
-        camTransform.SetPosition(glm::vec3(0, 0, 4));
+        camTransform.SetPosition(glm::vec3(0, 0, 10));
 
-        // Create fish mesh
-        auto fish = std::make_unique<Graphics::Model>();
-        fish->LoadFromFile("fish.obj");
-        this->m_modelManager.PushResource("fish", std::move(fish));
-        // create a square entity
+        Graphics::ModelLoader::LoadFromFile("car.obj");
+        Graphics::ModelLoader::LoadFromFile("fish.obj");
+
         const auto fishMesh = m_registry.create();
         m_registry.emplace<ECS::TagComponent>(fishMesh, "Fish mesh");
         m_registry.emplace<ECS::TransformComponent>(fishMesh);
-        m_registry.emplace<ECS::ModelComponent>(fishMesh, m_modelManager.GetResouceID("fish"));
+        m_registry.emplace<ECS::ModelComponent>(fishMesh, m_modelManager.GetResourceID("fish"));
+        auto& fishTransform = m_registry.get<ECS::TransformComponent>(fishMesh);
+        fishTransform.SetPosition(glm::vec3(5, 0, 0));
+
+        const auto carMesh = m_registry.create();
+        m_registry.emplace<ECS::TagComponent>(carMesh, "Car mesh");
+        m_registry.emplace<ECS::TransformComponent>(carMesh);
+        m_registry.emplace<ECS::ModelComponent>(carMesh, m_modelManager.GetResourceID("car"));
+        auto& carTransform = m_registry.get<ECS::TransformComponent>(carMesh);
+        carTransform.SetPosition(glm::vec3(-5, 0, 0));
     }
 
     void TestScene::Update(float deltaTime)

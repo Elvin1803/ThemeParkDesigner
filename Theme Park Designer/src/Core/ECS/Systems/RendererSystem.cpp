@@ -39,7 +39,7 @@ namespace TPD::ECS::RendererSystem
                 glm::mat4 mvp = currentCam.projectionMatrix * currentCam.viewMatrix * meshTransform.modelMatrix;
                 //glm::mat4 mvp = currentCam.projectionMatrix * currentCam.viewMatrix;
 
-                TPD_LOG_INFO("mvp: {}", glm::to_string(mvp));
+                //TPD_LOG_INFO("mvp: {}", glm::to_string(mvp));
                 glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, glm::value_ptr(mvp));
 
                 auto& meshes = temp->GetMeshes();

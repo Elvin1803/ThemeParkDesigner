@@ -2,11 +2,12 @@
 #include "ObjLoader.h"
 
 #include "Core/Graphics/GraphicsAPI.h"
+#include "Core/Scene/SceneManager.h"
 
 namespace TPD::Graphics::OBJLoader
 {
 
-    void Load(const std::string& filePath, Model& model)
+    void Load(const std::string& filePath)
     {
         std::ifstream file(filePath);
         if (!file.is_open())
@@ -15,12 +16,14 @@ namespace TPD::Graphics::OBJLoader
             return;
         }
 
+        std::unique_ptr<Model> model = std::make_unique<Model>();
+
         // TODO: Handle materials
         std::vector<float> positions;
         std::vector<float> normals;
         std::vector<float> uvCoords;
 
-        // Final buffersauto layout = Graphics::API::CreateBufferLayout({
+        // Final buffers
         auto layout = Graphics::API::CreateBufferLayout({
                 Graphics::API::CreateBufferLayoutElement(3, TPD::Graphics::ShaderDataType::Float), // position
                 Graphics::API::CreateBufferLayoutElement(3, TPD::Graphics::ShaderDataType::Float), // normal
@@ -30,6 +33,7 @@ namespace TPD::Graphics::OBJLoader
         std::vector<uint32_t> indexBuffer;
         uint32_t i = 0;
 
+        std::string obj_name;
         std::string line;
         while (std::getline(file, line))
         {
@@ -37,7 +41,18 @@ namespace TPD::Graphics::OBJLoader
             std::string token;
             ss >> token;
 
-            if (token == "v")
+            if (token == "o")
+            {
+                if (vertexBuffer.size() > 0)
+                {
+                    PushMesh(obj_name, *model, layout, vertexBuffer, indexBuffer);
+                    vertexBuffer.clear();
+                    indexBuffer.clear();
+                    i = 0;
+                }
+                ss >> obj_name;
+            }
+            else if (token == "v")
             {
                 ParseVertex(ss, positions);
             }
@@ -60,33 +75,10 @@ namespace TPD::Graphics::OBJLoader
             }
         }
 
-        PushMesh("cube", model, layout, vertexBuffer, indexBuffer);
+        PushMesh(obj_name, *model, layout, vertexBuffer, indexBuffer);
 
-        // TODO
-        /*
-        float vertices[] = {
-            -0.5f, 0.5f,  0.0f,  1.0f, 0.0f, 0.0f, 1.0f,
-            -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f, 1.0f,
-            0.5f,  -0.5f, 0.0f,  0.0f, 1.0f, 0.0f, 1.0f,
-            0.5f,   0.5f, 0.0f,  0.0f, 0.0f, 1.0f, 1.0f,
-        };
-
-        uint32_t indices[] = {
-            0, 1, 2, 0, 2, 3
-        };
-
-        auto layout = Graphics::API::CreateBufferLayout({
-                Graphics::API::CreateBufferLayoutElement(3, TPD::Graphics::ShaderDataType::Float), // position
-                Graphics::API::CreateBufferLayoutElement(4, TPD::Graphics::ShaderDataType::Float)  // color
-            });
-
-        auto vbo = Graphics::API::CreateVertexBuffer(vertices, sizeof(vertices));
-        auto ibo = Graphics::API::CreateIndexBuffer(indices, sizeof(indices));
-        auto square = Graphics::API::CreateVertexArray(layout, std::move(ibo), std::move(vbo));
-        std::unique_ptr<Mesh> squareMesh = std::make_unique<Mesh>(std::move(square));
-
-        model.PushMesh("square", std::move(squareMesh));
-        */
+        std::string name = std::filesystem::path(filePath).replace_extension().string();
+        ::TPD::SceneManager::GetScene()->GetModelManager().PushResource(name, std::move(model));
     }
 
     void PushMesh(const std::string& name, Model& model, std::shared_ptr<Graphics::BufferLayout> layout, std::vector<float> vertexBuffer, std::vector<uint32_t> indexBuffer)
@@ -94,8 +86,8 @@ namespace TPD::Graphics::OBJLoader
         auto vbo = Graphics::API::CreateVertexBuffer(vertexBuffer.data(), sizeof(float) * vertexBuffer.size());
         auto ibo = Graphics::API::CreateIndexBuffer(indexBuffer.data(), sizeof(uint32_t) * indexBuffer.size());
         auto vao = Graphics::API::CreateVertexArray(layout, std::move(ibo), std::move(vbo));
-        std::unique_ptr<Mesh> mesh = std::make_unique<Mesh>(std::move(vao));
 
+        std::unique_ptr<Mesh> mesh = std::make_unique<Mesh>(std::move(vao));
         model.PushMesh(name, std::move(mesh));
     }
 
