@@ -43,11 +43,14 @@ namespace TPD::ECS::RendererSystem
                 glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, glm::value_ptr(mvp));
 
                 auto& meshes = temp->GetMeshes();
-                for (auto const& [_, mesh] : meshes)
+                for (auto const& [name, mesh] : meshes)
                 {
+                    TPD_LOG_DEBUG("Rendering: {}", name);
                     const auto& vao = mesh->GetVAO();
                     vao->Bind();
+                    TPD_LOG_DEBUG("Indice count: {}", vao->GetIndicesCount());
                     glDrawElements(GL_TRIANGLES, vao->GetIndicesCount(), GL_UNSIGNED_INT, nullptr);
+                    //glDrawArrays(GL_TRIANGLES, 0, vao->GetIndicesCount());
                 }
             }
         }

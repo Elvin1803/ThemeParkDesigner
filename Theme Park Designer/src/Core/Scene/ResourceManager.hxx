@@ -11,11 +11,13 @@ namespace TPD
         ResourceManager() = default;
         ~ResourceManager() = default;
 
-        void PushResource(const std::string& name, std::unique_ptr<T> resource)
+        uint32_t PushResource(const std::string& name, std::unique_ptr<T> resource)
         {
             m_pathToID[name] = m_nextResourceID;
             m_resourceMap[m_nextResourceID] = std::move(resource);
             m_nextResourceID += 1;
+
+            return m_nextResourceID - 1;
         }
 
         T* GetResourceData(uint32_t id)

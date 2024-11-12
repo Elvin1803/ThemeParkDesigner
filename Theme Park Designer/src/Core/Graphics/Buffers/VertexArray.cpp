@@ -95,5 +95,6 @@ namespace TPD::Graphics
     void VertexArray::Bind() const
     {
         glBindVertexArray(m_VAOid);
+        m_ibo->Bind();
     }
 }

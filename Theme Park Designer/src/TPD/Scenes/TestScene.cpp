@@ -24,9 +24,9 @@ namespace TPD
         //auto& cam = m_registry.get<ECS::CameraComponent>(mainCamera);
         //cam.SetProjection(ECS::CameraComponent::ProjectionMode::ORTHOGRAPHIC);
         auto& camTransform = m_registry.get<ECS::TransformComponent>(mainCamera);
-        camTransform.SetPosition(glm::vec3(0, 0, 10));
+        camTransform.SetPosition(glm::vec3(0, 0, 6));
 
-        Graphics::ModelLoader::LoadFromFile("car.obj");
+        //Graphics::ModelLoader::LoadFromFile("car.obj");
         Graphics::ModelLoader::LoadFromFile("fish.obj");
 
         const auto fishMesh = m_registry.create();
@@ -34,18 +34,21 @@ namespace TPD
         m_registry.emplace<ECS::TransformComponent>(fishMesh);
         m_registry.emplace<ECS::ModelComponent>(fishMesh, m_modelManager.GetResourceID("fish"));
         auto& fishTransform = m_registry.get<ECS::TransformComponent>(fishMesh);
-        fishTransform.SetPosition(glm::vec3(5, 0, 0));
+        fishTransform.SetRotation(glm::vec3(0, 90, 0));
 
+        /*
         const auto carMesh = m_registry.create();
         m_registry.emplace<ECS::TagComponent>(carMesh, "Car mesh");
         m_registry.emplace<ECS::TransformComponent>(carMesh);
         m_registry.emplace<ECS::ModelComponent>(carMesh, m_modelManager.GetResourceID("car"));
         auto& carTransform = m_registry.get<ECS::TransformComponent>(carMesh);
         carTransform.SetPosition(glm::vec3(-5, 0, 0));
+        */
     }
 
     void TestScene::Update(float deltaTime)
     {
+        /*
         auto squareView = m_registry.view<ECS::TransformComponent, ECS::ModelComponent>();
         for (auto entity : squareView)
         {
@@ -53,7 +56,6 @@ namespace TPD
             squareTransform.SetRotation(glm::vec3(squareTransform.rotation.x, squareTransform.rotation.y - 2, squareTransform.rotation.z));
         }
 
-        /*
         auto camView = m_registry.view<ECS::TransformComponent, ECS::CameraComponent>();
         for (auto entity : camView)
         {

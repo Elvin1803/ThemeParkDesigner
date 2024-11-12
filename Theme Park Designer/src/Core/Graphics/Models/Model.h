@@ -17,6 +17,12 @@ namespace TPD::Graphics
 
     private:
         std::unordered_map<std::string, std::unique_ptr<Mesh>> m_meshes;
+
+        /*
+         * When a new material is created, it is pushed in the scene's material manager with it's name.
+         * When rendering, we get the Material with it's ID in the material manager.
+         */
+        std::vector<uint32_t> m_materials;
     };
 
 }

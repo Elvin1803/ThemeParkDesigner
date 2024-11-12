@@ -5,6 +5,7 @@
 
 #include "Core/ECS/Systems.h"
 #include "Core/Graphics/Models/Model.h"
+#include "Core/Graphics/Models/Material.h"
 #include "Core/Graphics/Shaders/ShaderProgram.h"
 
 #include "ResourceManager.hxx"
@@ -12,6 +13,7 @@
 namespace TPD
 {
     using ModelManager = ResourceManager<Graphics::Model>;
+    using MaterialManager = ResourceManager<Graphics::Material>;
     using ShaderManager = ResourceManager<Graphics::ShaderProgram>;
 
     class Scene
@@ -24,12 +26,16 @@ namespace TPD
         virtual void Update(float deltaTime) = 0;
 
         inline entt::registry& GetRegistry() { return m_registry; };
+
         inline ModelManager& GetModelManager() { return m_modelManager; };
+        inline MaterialManager& GetMaterialManager() { return m_materialManager; };
         inline ShaderManager& GetShaderManager() { return m_shaderManager; };
 
     protected:
         entt::registry m_registry;
-        ModelManager m_modelManager; // Maybe change to a MeshData later (Don't forget to update code in rendererSystem)
+
+        ModelManager m_modelManager;
+        MaterialManager m_materialManager;
         ShaderManager m_shaderManager;
     };
 
